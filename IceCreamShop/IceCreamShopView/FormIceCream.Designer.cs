@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.iceCreamIngredientViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonRef = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDel = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.labelPrice = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
-            this.iceCreamIngredientViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iceCreamIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ingredientIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +81,10 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(425, 297);
             this.dataGridView.TabIndex = 11;
+            // 
+            // iceCreamIngredientViewModelBindingSource
+            // 
+            this.iceCreamIngredientViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.IceCreamIngredientViewModel);
             // 
             // buttonRef
             // 
@@ -174,15 +178,13 @@
             this.labelName.TabIndex = 7;
             this.labelName.Text = "Название:";
             // 
-            // iceCreamIngredientViewModelBindingSource
-            // 
-            this.iceCreamIngredientViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.IceCreamIngredientViewModel);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
             // iceCreamIdDataGridViewTextBoxColumn
@@ -190,6 +192,8 @@
             this.iceCreamIdDataGridViewTextBoxColumn.DataPropertyName = "IceCreamId";
             this.iceCreamIdDataGridViewTextBoxColumn.HeaderText = "IceCreamId";
             this.iceCreamIdDataGridViewTextBoxColumn.Name = "iceCreamIdDataGridViewTextBoxColumn";
+            this.iceCreamIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iceCreamIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.iceCreamIdDataGridViewTextBoxColumn.Visible = false;
             // 
             // ingredientIdDataGridViewTextBoxColumn
@@ -197,6 +201,8 @@
             this.ingredientIdDataGridViewTextBoxColumn.DataPropertyName = "IngredientId";
             this.ingredientIdDataGridViewTextBoxColumn.HeaderText = "IngredientId";
             this.ingredientIdDataGridViewTextBoxColumn.Name = "ingredientIdDataGridViewTextBoxColumn";
+            this.ingredientIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ingredientIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ingredientIdDataGridViewTextBoxColumn.Visible = false;
             // 
             // ingredientNameDataGridViewTextBoxColumn
@@ -205,6 +211,8 @@
             this.ingredientNameDataGridViewTextBoxColumn.DataPropertyName = "IngredientName";
             this.ingredientNameDataGridViewTextBoxColumn.HeaderText = "IngredientName";
             this.ingredientNameDataGridViewTextBoxColumn.Name = "ingredientNameDataGridViewTextBoxColumn";
+            this.ingredientNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ingredientNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // countDataGridViewTextBoxColumn
             // 
@@ -212,6 +220,8 @@
             this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
             this.countDataGridViewTextBoxColumn.HeaderText = "Count";
             this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
+            this.countDataGridViewTextBoxColumn.ReadOnly = true;
+            this.countDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormIceCream
             // 
@@ -250,11 +260,11 @@
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.BindingSource iceCreamIngredientViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iceCreamIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ingredientNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource iceCreamIngredientViewModelBindingSource;
     }
 }

@@ -35,12 +35,12 @@
             this.ингредиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.мороженоеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.bookingViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonCreateBooking = new System.Windows.Forms.Button();
             this.buttonTakeBookingInWork = new System.Windows.Forms.Button();
             this.buttonBookingReady = new System.Windows.Forms.Button();
             this.buttonPayBooking = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
-            this.bookingViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerFIODataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,21 +79,21 @@
             // покупателиToolStripMenuItem
             // 
             this.покупателиToolStripMenuItem.Name = "покупателиToolStripMenuItem";
-            this.покупателиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.покупателиToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.покупателиToolStripMenuItem.Text = "Покупатели";
             this.покупателиToolStripMenuItem.Click += new System.EventHandler(this.покупателиToolStripMenuItem_Click);
             // 
             // ингредиентыToolStripMenuItem
             // 
             this.ингредиентыToolStripMenuItem.Name = "ингредиентыToolStripMenuItem";
-            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.ингредиентыToolStripMenuItem.Text = "Ингредиенты";
             this.ингредиентыToolStripMenuItem.Click += new System.EventHandler(this.ингредиентыToolStripMenuItem_Click);
             // 
             // мороженоеToolStripMenuItem
             // 
             this.мороженоеToolStripMenuItem.Name = "мороженоеToolStripMenuItem";
-            this.мороженоеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.мороженоеToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.мороженоеToolStripMenuItem.Text = "Мороженое";
             this.мороженоеToolStripMenuItem.Click += new System.EventHandler(this.мороженоеToolStripMenuItem_Click);
             // 
@@ -117,6 +117,10 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(665, 337);
             this.dataGridView.TabIndex = 1;
+            // 
+            // bookingViewModelBindingSource
+            // 
+            this.bookingViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.BookingViewModel);
             // 
             // buttonCreateBooking
             // 
@@ -168,15 +172,13 @@
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
-            // bookingViewModelBindingSource
-            // 
-            this.bookingViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.BookingViewModel);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
             // customerIdDataGridViewTextBoxColumn
@@ -184,6 +186,8 @@
             this.customerIdDataGridViewTextBoxColumn.DataPropertyName = "CustomerId";
             this.customerIdDataGridViewTextBoxColumn.HeaderText = "CustomerId";
             this.customerIdDataGridViewTextBoxColumn.Name = "customerIdDataGridViewTextBoxColumn";
+            this.customerIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.customerIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.customerIdDataGridViewTextBoxColumn.Visible = false;
             // 
             // customerFIODataGridViewTextBoxColumn
@@ -192,12 +196,16 @@
             this.customerFIODataGridViewTextBoxColumn.DataPropertyName = "CustomerFIO";
             this.customerFIODataGridViewTextBoxColumn.HeaderText = "CustomerFIO";
             this.customerFIODataGridViewTextBoxColumn.Name = "customerFIODataGridViewTextBoxColumn";
+            this.customerFIODataGridViewTextBoxColumn.ReadOnly = true;
+            this.customerFIODataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // iceCreamIdDataGridViewTextBoxColumn
             // 
             this.iceCreamIdDataGridViewTextBoxColumn.DataPropertyName = "IceCreamId";
             this.iceCreamIdDataGridViewTextBoxColumn.HeaderText = "IceCreamId";
             this.iceCreamIdDataGridViewTextBoxColumn.Name = "iceCreamIdDataGridViewTextBoxColumn";
+            this.iceCreamIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iceCreamIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.iceCreamIdDataGridViewTextBoxColumn.Visible = false;
             // 
             // iceCreamNameDataGridViewTextBoxColumn
@@ -206,6 +214,8 @@
             this.iceCreamNameDataGridViewTextBoxColumn.DataPropertyName = "IceCreamName";
             this.iceCreamNameDataGridViewTextBoxColumn.HeaderText = "IceCreamName";
             this.iceCreamNameDataGridViewTextBoxColumn.Name = "iceCreamNameDataGridViewTextBoxColumn";
+            this.iceCreamNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iceCreamNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // countDataGridViewTextBoxColumn
             // 
@@ -213,6 +223,8 @@
             this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
             this.countDataGridViewTextBoxColumn.HeaderText = "Count";
             this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
+            this.countDataGridViewTextBoxColumn.ReadOnly = true;
+            this.countDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.countDataGridViewTextBoxColumn.Visible = false;
             // 
             // sumDataGridViewTextBoxColumn
@@ -221,6 +233,8 @@
             this.sumDataGridViewTextBoxColumn.DataPropertyName = "Sum";
             this.sumDataGridViewTextBoxColumn.HeaderText = "Sum";
             this.sumDataGridViewTextBoxColumn.Name = "sumDataGridViewTextBoxColumn";
+            this.sumDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sumDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // statusDataGridViewTextBoxColumn
             // 
@@ -228,6 +242,8 @@
             this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
             this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
             this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            this.statusDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // dateCreateDataGridViewTextBoxColumn
             // 
@@ -235,6 +251,8 @@
             this.dateCreateDataGridViewTextBoxColumn.DataPropertyName = "DateCreate";
             this.dateCreateDataGridViewTextBoxColumn.HeaderText = "DateCreate";
             this.dateCreateDataGridViewTextBoxColumn.Name = "dateCreateDataGridViewTextBoxColumn";
+            this.dateCreateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dateCreateDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // dateImplementDataGridViewTextBoxColumn
             // 
@@ -242,6 +260,8 @@
             this.dateImplementDataGridViewTextBoxColumn.DataPropertyName = "DateImplement";
             this.dateImplementDataGridViewTextBoxColumn.HeaderText = "DateImplement";
             this.dateImplementDataGridViewTextBoxColumn.Name = "dateImplementDataGridViewTextBoxColumn";
+            this.dateImplementDataGridViewTextBoxColumn.ReadOnly = true;
+            this.dateImplementDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormMain
             // 
@@ -280,6 +300,8 @@
         private System.Windows.Forms.Button buttonBookingReady;
         private System.Windows.Forms.Button buttonPayBooking;
         private System.Windows.Forms.Button buttonRef;
+        private System.Windows.Forms.BindingSource bookingViewModelBindingSource;
+        private System.ComponentModel.IContainer components;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerFIODataGridViewTextBoxColumn;
@@ -290,8 +312,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateCreateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateImplementDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource bookingViewModelBindingSource;
-        private System.ComponentModel.IContainer components;
     }
 }
 

@@ -34,10 +34,10 @@
             this.buttonUpd = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.iceCreamViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iceCreamNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iceCreamViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iceCreamViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -96,11 +96,17 @@
             this.dataGridView.Size = new System.Drawing.Size(461, 439);
             this.dataGridView.TabIndex = 9;
             // 
+            // iceCreamViewModelBindingSource
+            // 
+            this.iceCreamViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.IceCreamViewModel);
+            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.idDataGridViewTextBoxColumn.Visible = false;
             // 
             // iceCreamNameDataGridViewTextBoxColumn
@@ -109,6 +115,8 @@
             this.iceCreamNameDataGridViewTextBoxColumn.DataPropertyName = "IceCreamName";
             this.iceCreamNameDataGridViewTextBoxColumn.HeaderText = "IceCreamName";
             this.iceCreamNameDataGridViewTextBoxColumn.Name = "iceCreamNameDataGridViewTextBoxColumn";
+            this.iceCreamNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iceCreamNameDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // priceDataGridViewTextBoxColumn
             // 
@@ -116,10 +124,8 @@
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
             this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            // 
-            // iceCreamViewModelBindingSource
-            // 
-            this.iceCreamViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.IceCreamViewModel);
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            this.priceDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // FormIceCreams
             // 
@@ -147,9 +153,9 @@
         private System.Windows.Forms.Button buttonUpd;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.BindingSource iceCreamViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iceCreamNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource iceCreamViewModelBindingSource;
     }
 }
