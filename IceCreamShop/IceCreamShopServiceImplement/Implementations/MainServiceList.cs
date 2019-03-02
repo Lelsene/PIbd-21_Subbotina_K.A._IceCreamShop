@@ -4,6 +4,7 @@ using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IceCreamShopServiceImplement.Implementations
 {
@@ -18,54 +19,26 @@ namespace IceCreamShopServiceImplement.Implementations
 
         public List<BookingViewModel> GetList()
         {
-            List<BookingViewModel> result = new List<BookingViewModel>();
-            for (int i = 0; i < source.Bookings.Count; ++i)
+            List<BookingViewModel> result = source.Bookings.Select(rec => new BookingViewModel
             {
-                string CustomerFIO = string.Empty;
-                for (int j = 0; j < source.Customers.Count; ++j)
-                {
-                    if (source.Customers[j].Id == source.Bookings[i].CustomerId)
-                    {
-                        CustomerFIO = source.Customers[j].CustomerFIO;
-                        break;
-                    }
-                }
-                string IceCreamName = string.Empty;
-                for (int j = 0; j < source.IceCreams.Count; ++j)
-                {
-                    if (source.IceCreams[j].Id == source.Bookings[i].IceCreamId)
-                    {
-                        IceCreamName = source.IceCreams[j].IceCreamName;
-                        break;
-                    }
-                }
-                result.Add(new BookingViewModel
-                {
-                    Id = source.Bookings[i].Id,
-                    CustomerId = source.Bookings[i].CustomerId,
-                    CustomerFIO = CustomerFIO,
-                    IceCreamId = source.Bookings[i].IceCreamId,
-                    IceCreamName = IceCreamName,
-                    Count = source.Bookings[i].Count,
-                    Sum = source.Bookings[i].Sum,
-                    DateCreate = source.Bookings[i].DateCreate.ToLongDateString(),
-                    DateImplement = source.Bookings[i].DateImplement?.ToLongDateString(),
-                    Status = source.Bookings[i].Status.ToString()
-                });
-            }
+                Id = rec.Id,
+                CustomerId = rec.CustomerId,
+                IceCreamId = rec.IceCreamId,
+                DateCreate = rec.DateCreate.ToLongDateString(),
+                DateImplement = rec.DateImplement?.ToLongDateString(),
+                Status = rec.Status.ToString(),
+                Count = rec.Count,
+                Sum = rec.Sum,
+                CustomerFIO = source.Customers.FirstOrDefault(recC => recC.Id == rec.CustomerId)?.CustomerFIO,
+                IceCreamName = source.IceCreams.FirstOrDefault(recP => recP.Id == rec.IceCreamId)?.IceCreamName,
+            })
+            .ToList();
             return result;
         }
 
         public void CreateBooking(BookingBindingModel model)
         {
-            int maxId = 0;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Bookings[i].Id > maxId)
-                {
-                    maxId = source.Customers[i].Id;
-                }
-            }
+            int maxId = source.Bookings.Count > 0 ? source.Bookings.Max(rec => rec.Id) : 0;
             source.Bookings.Add(new Booking
             {
                 Id = maxId + 1,
@@ -80,69 +53,101 @@ namespace IceCreamShopServiceImplement.Implementations
 
         public void TakeBookingInWork(BookingBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Bookings[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Booking element = source.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Bookings[index].Status != BookingStatus.Принят)
+            if (element.Status != BookingStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            source.Bookings[index].DateImplement = DateTime.Now;
-            source.Bookings[index].Status = BookingStatus.Готовится;
+            // смотрим по количеству компонентов на складах
+            var icecreamIngredients = source.IceCreamIngredients.Where(rec => rec.IceCreamId == element.IceCreamId);
+            foreach (var icecreamIngredient in icecreamIngredients)
+            {
+                int countOnStorages = source.StorageIngredients
+                    .Where(rec => rec.IngredientId == icecreamIngredient.IngredientId)
+                    .Sum(rec => rec.Count);
+                if (countOnStorages < icecreamIngredient.Count * element.Count)
+                {
+                    var IngredientName = source.Ingredients.FirstOrDefault(rec => rec.Id == icecreamIngredient.IngredientId);
+                    throw new Exception("Не достаточно ингредиента " + IngredientName?.IngredientName + " требуется " + (icecreamIngredient.Count * element.Count) + ", в наличии " + countOnStorages);
+                }
+            }
+            // списываем
+            foreach (var icecreamIngredient in icecreamIngredients)
+            {
+                int countOnStorages = icecreamIngredient.Count * element.Count;
+                var StorageIngredients = source.StorageIngredients.Where(rec => rec.IngredientId
+                == icecreamIngredient.IngredientId);
+                foreach (var StorageIngredient in StorageIngredients)
+                {
+                    // ингредиентов в одном хранилище может не хватать
+                    if (StorageIngredient.Count >= countOnStorages)
+                    {
+                        StorageIngredient.Count -= countOnStorages;
+                        break;
+                    }
+                    else
+                    {
+                        countOnStorages -= StorageIngredient.Count;
+                        StorageIngredient.Count = 0;
+                    }
+                }
+            }
+            element.DateImplement = DateTime.Now;
+            element.Status = BookingStatus.Готовится;
         }
 
         public void FinishBooking(BookingBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Customers[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Booking element = source.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Bookings[index].Status != BookingStatus.Готовится)
+            if (element.Status != BookingStatus.Готовится)
             {
-                throw new Exception("Заказ не в статусе \"Выполняется\"");
+                throw new Exception("Заказ не в статусе \"Готовится\"");
             }
-            source.Bookings[index].Status = BookingStatus.Готов;
+            element.Status = BookingStatus.Готов;
         }
 
         public void PayBooking(BookingBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.Bookings.Count; ++i)
-            {
-                if (source.Customers[i].Id == model.Id)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1)
+            Booking element = source.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            if (source.Bookings[index].Status != BookingStatus.Готов)
+            if (element.Status != BookingStatus.Готов)
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-            source.Bookings[index].Status = BookingStatus.Оплачен;
+            element.Status = BookingStatus.Оплачен;
+        }
+
+        public void PutIngredientOnStorage(StorageIngredientBindingModel model)
+        {
+            StorageIngredient element = source.StorageIngredients.FirstOrDefault(rec =>
+            rec.StorageId == model.StorageId && rec.IngredientId == model.IngredientId);
+            if (element != null)
+            {
+                element.Count += model.Count;
+            }
+            else
+            {
+                int maxId = source.StorageIngredients.Count > 0 ?
+                source.StorageIngredients.Max(rec => rec.Id) : 0;
+                source.StorageIngredients.Add(new StorageIngredient
+                {
+                    Id = ++maxId,
+                    StorageId = model.StorageId,
+                    IngredientId = model.IngredientId,
+                    Count = model.Count
+                });
+            }
         }
     }
 }

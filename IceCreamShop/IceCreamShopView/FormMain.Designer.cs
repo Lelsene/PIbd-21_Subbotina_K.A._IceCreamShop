@@ -35,12 +35,6 @@
             this.ингредиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.мороженоеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.bookingViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.buttonCreateBooking = new System.Windows.Forms.Button();
-            this.buttonTakeBookingInWork = new System.Windows.Forms.Button();
-            this.buttonBookingReady = new System.Windows.Forms.Button();
-            this.buttonPayBooking = new System.Windows.Forms.Button();
-            this.buttonRef = new System.Windows.Forms.Button();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerFIODataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +45,14 @@
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateCreateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateImplementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bookingViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonCreateBooking = new System.Windows.Forms.Button();
+            this.buttonTakeBookingInWork = new System.Windows.Forms.Button();
+            this.buttonBookingReady = new System.Windows.Forms.Button();
+            this.buttonPayBooking = new System.Windows.Forms.Button();
+            this.buttonRef = new System.Windows.Forms.Button();
+            this.хранилищаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьХранилищеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingViewModelBindingSource)).BeginInit();
@@ -59,7 +61,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.справочникиToolStripMenuItem});
+            this.справочникиToolStripMenuItem,
+            this.пополнитьХранилищеToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(860, 24);
@@ -71,7 +74,8 @@
             this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.покупателиToolStripMenuItem,
             this.ингредиентыToolStripMenuItem,
-            this.мороженоеToolStripMenuItem});
+            this.мороженоеToolStripMenuItem,
+            this.хранилищаToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -79,21 +83,21 @@
             // покупателиToolStripMenuItem
             // 
             this.покупателиToolStripMenuItem.Name = "покупателиToolStripMenuItem";
-            this.покупателиToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.покупателиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.покупателиToolStripMenuItem.Text = "Покупатели";
             this.покупателиToolStripMenuItem.Click += new System.EventHandler(this.покупателиToolStripMenuItem_Click);
             // 
             // ингредиентыToolStripMenuItem
             // 
             this.ингредиентыToolStripMenuItem.Name = "ингредиентыToolStripMenuItem";
-            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.ингредиентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ингредиентыToolStripMenuItem.Text = "Ингредиенты";
             this.ингредиентыToolStripMenuItem.Click += new System.EventHandler(this.ингредиентыToolStripMenuItem_Click);
             // 
             // мороженоеToolStripMenuItem
             // 
             this.мороженоеToolStripMenuItem.Name = "мороженоеToolStripMenuItem";
-            this.мороженоеToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.мороженоеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.мороженоеToolStripMenuItem.Text = "Мороженое";
             this.мороженоеToolStripMenuItem.Click += new System.EventHandler(this.мороженоеToolStripMenuItem_Click);
             // 
@@ -117,60 +121,6 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(665, 337);
             this.dataGridView.TabIndex = 1;
-            // 
-            // bookingViewModelBindingSource
-            // 
-            this.bookingViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.BookingViewModel);
-            // 
-            // buttonCreateBooking
-            // 
-            this.buttonCreateBooking.Location = new System.Drawing.Point(680, 34);
-            this.buttonCreateBooking.Name = "buttonCreateBooking";
-            this.buttonCreateBooking.Size = new System.Drawing.Size(168, 32);
-            this.buttonCreateBooking.TabIndex = 2;
-            this.buttonCreateBooking.Text = "Создать заказ";
-            this.buttonCreateBooking.UseVisualStyleBackColor = true;
-            this.buttonCreateBooking.Click += new System.EventHandler(this.buttonCreateBooking_Click);
-            // 
-            // buttonTakeBookingInWork
-            // 
-            this.buttonTakeBookingInWork.Location = new System.Drawing.Point(680, 72);
-            this.buttonTakeBookingInWork.Name = "buttonTakeBookingInWork";
-            this.buttonTakeBookingInWork.Size = new System.Drawing.Size(168, 32);
-            this.buttonTakeBookingInWork.TabIndex = 3;
-            this.buttonTakeBookingInWork.Text = "Отдать на выполнение";
-            this.buttonTakeBookingInWork.UseVisualStyleBackColor = true;
-            this.buttonTakeBookingInWork.Click += new System.EventHandler(this.buttonTakeBookingInWork_Click);
-            // 
-            // buttonBookingReady
-            // 
-            this.buttonBookingReady.Location = new System.Drawing.Point(680, 110);
-            this.buttonBookingReady.Name = "buttonBookingReady";
-            this.buttonBookingReady.Size = new System.Drawing.Size(168, 32);
-            this.buttonBookingReady.TabIndex = 4;
-            this.buttonBookingReady.Text = "Заказ готов";
-            this.buttonBookingReady.UseVisualStyleBackColor = true;
-            this.buttonBookingReady.Click += new System.EventHandler(this.buttonBookingReady_Click);
-            // 
-            // buttonPayBooking
-            // 
-            this.buttonPayBooking.Location = new System.Drawing.Point(680, 148);
-            this.buttonPayBooking.Name = "buttonPayBooking";
-            this.buttonPayBooking.Size = new System.Drawing.Size(168, 32);
-            this.buttonPayBooking.TabIndex = 5;
-            this.buttonPayBooking.Text = "Заказ оплачен";
-            this.buttonPayBooking.UseVisualStyleBackColor = true;
-            this.buttonPayBooking.Click += new System.EventHandler(this.buttonPayBooking_Click);
-            // 
-            // buttonRef
-            // 
-            this.buttonRef.Location = new System.Drawing.Point(680, 186);
-            this.buttonRef.Name = "buttonRef";
-            this.buttonRef.Size = new System.Drawing.Size(168, 32);
-            this.buttonRef.TabIndex = 6;
-            this.buttonRef.Text = "Обновить список";
-            this.buttonRef.UseVisualStyleBackColor = true;
-            this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -263,6 +213,74 @@
             this.dateImplementDataGridViewTextBoxColumn.ReadOnly = true;
             this.dateImplementDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
+            // bookingViewModelBindingSource
+            // 
+            this.bookingViewModelBindingSource.DataSource = typeof(IceCreamShopServiceDAL.ViewModels.BookingViewModel);
+            // 
+            // buttonCreateBooking
+            // 
+            this.buttonCreateBooking.Location = new System.Drawing.Point(680, 34);
+            this.buttonCreateBooking.Name = "buttonCreateBooking";
+            this.buttonCreateBooking.Size = new System.Drawing.Size(168, 32);
+            this.buttonCreateBooking.TabIndex = 2;
+            this.buttonCreateBooking.Text = "Создать заказ";
+            this.buttonCreateBooking.UseVisualStyleBackColor = true;
+            this.buttonCreateBooking.Click += new System.EventHandler(this.buttonCreateBooking_Click);
+            // 
+            // buttonTakeBookingInWork
+            // 
+            this.buttonTakeBookingInWork.Location = new System.Drawing.Point(680, 72);
+            this.buttonTakeBookingInWork.Name = "buttonTakeBookingInWork";
+            this.buttonTakeBookingInWork.Size = new System.Drawing.Size(168, 32);
+            this.buttonTakeBookingInWork.TabIndex = 3;
+            this.buttonTakeBookingInWork.Text = "Отдать на выполнение";
+            this.buttonTakeBookingInWork.UseVisualStyleBackColor = true;
+            this.buttonTakeBookingInWork.Click += new System.EventHandler(this.buttonTakeBookingInWork_Click);
+            // 
+            // buttonBookingReady
+            // 
+            this.buttonBookingReady.Location = new System.Drawing.Point(680, 110);
+            this.buttonBookingReady.Name = "buttonBookingReady";
+            this.buttonBookingReady.Size = new System.Drawing.Size(168, 32);
+            this.buttonBookingReady.TabIndex = 4;
+            this.buttonBookingReady.Text = "Заказ готов";
+            this.buttonBookingReady.UseVisualStyleBackColor = true;
+            this.buttonBookingReady.Click += new System.EventHandler(this.buttonBookingReady_Click);
+            // 
+            // buttonPayBooking
+            // 
+            this.buttonPayBooking.Location = new System.Drawing.Point(680, 148);
+            this.buttonPayBooking.Name = "buttonPayBooking";
+            this.buttonPayBooking.Size = new System.Drawing.Size(168, 32);
+            this.buttonPayBooking.TabIndex = 5;
+            this.buttonPayBooking.Text = "Заказ оплачен";
+            this.buttonPayBooking.UseVisualStyleBackColor = true;
+            this.buttonPayBooking.Click += new System.EventHandler(this.buttonPayBooking_Click);
+            // 
+            // buttonRef
+            // 
+            this.buttonRef.Location = new System.Drawing.Point(680, 186);
+            this.buttonRef.Name = "buttonRef";
+            this.buttonRef.Size = new System.Drawing.Size(168, 32);
+            this.buttonRef.TabIndex = 6;
+            this.buttonRef.Text = "Обновить список";
+            this.buttonRef.UseVisualStyleBackColor = true;
+            this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
+            // 
+            // хранилищаToolStripMenuItem
+            // 
+            this.хранилищаToolStripMenuItem.Name = "хранилищаToolStripMenuItem";
+            this.хранилищаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.хранилищаToolStripMenuItem.Text = "Хранилища";
+            this.хранилищаToolStripMenuItem.Click += new System.EventHandler(this.хранилищаToolStripMenuItem_Click);
+            // 
+            // пополнитьХранилищеToolStripMenuItem
+            // 
+            this.пополнитьХранилищеToolStripMenuItem.Name = "пополнитьХранилищеToolStripMenuItem";
+            this.пополнитьХранилищеToolStripMenuItem.Size = new System.Drawing.Size(147, 20);
+            this.пополнитьХранилищеToolStripMenuItem.Text = "Пополнить хранилище";
+            this.пополнитьХранилищеToolStripMenuItem.Click += new System.EventHandler(this.пополнитьХранилищеToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,6 +330,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateCreateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateImplementDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ToolStripMenuItem хранилищаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem пополнитьХранилищеToolStripMenuItem;
     }
 }
 

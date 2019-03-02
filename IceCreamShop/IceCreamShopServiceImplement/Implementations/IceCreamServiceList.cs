@@ -4,6 +4,7 @@ using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IceCreamShopServiceImplement.Implementations
 {
@@ -18,255 +19,164 @@ namespace IceCreamShopServiceImplement.Implementations
 
         public List<IceCreamViewModel> GetList()
         {
-            List<IceCreamViewModel> result = new List<IceCreamViewModel>();
-            for (int i = 0; i < source.IceCreams.Count; ++i)
+            List<IceCreamViewModel> result = source.IceCreams.Select(rec => new IceCreamViewModel
             {
-                // требуется дополнительно получить список ингредиентов для мороженого и их количество
-                List<IceCreamIngredientViewModel> IceCreamIngredients = new
-                List<IceCreamIngredientViewModel>();
-                for (int j = 0; j < source.IceCreamIngredients.Count; ++j)
-                {
-                    if (source.IceCreamIngredients[j].IceCreamId == source.IceCreams[i].Id)
-                    {
-                        string IngredientName = string.Empty;
-                        for (int k = 0; k < source.Ingredients.Count; ++k)
-                        {
-                            if (source.IceCreamIngredients[j].IngredientId ==
-                            source.Ingredients[k].Id)
-                            {
-                                IngredientName = source.Ingredients[k].IngredientName;
-                                break;
-                            }
-                        }
-                        IceCreamIngredients.Add(new IceCreamIngredientViewModel
-                        {
-                            Id = source.IceCreamIngredients[j].Id,
-                            IceCreamId = source.IceCreamIngredients[j].IceCreamId,
-                            IngredientId = source.IceCreamIngredients[j].IngredientId,
-                            IngredientName = IngredientName,
-                            Count = source.IceCreamIngredients[j].Count
-                        });
-                    }
-                }
-                result.Add(new IceCreamViewModel
-                {
-                    Id = source.IceCreams[i].Id,
-                    IceCreamName = source.IceCreams[i].IceCreamName,
-                    Price = source.IceCreams[i].Price,
-                    IceCreamIngredients = IceCreamIngredients
-                });
-            }
+                Id = rec.Id,
+                IceCreamName = rec.IceCreamName,
+                Price = rec.Price,
+                IceCreamIngredients = source.IceCreamIngredients
+                       .Where(recPC => recPC.IceCreamId == rec.Id)
+                       .Select(recPC => new IceCreamIngredientViewModel
+                       {
+                           Id = recPC.Id,
+                           IceCreamId = recPC.IceCreamId,
+                           IngredientId = recPC.IngredientId,
+                           IngredientName = source.Ingredients.FirstOrDefault(recC =>
+                           recC.Id == recPC.IngredientId)?.IngredientName,
+                           Count = recPC.Count
+                       })
+                       .ToList()
+            })
+            .ToList();
             return result;
         }
 
         public IceCreamViewModel GetElement(int id)
         {
-            for (int i = 0; i < source.IceCreams.Count; ++i)
+            IceCream element = source.IceCreams.FirstOrDefault(rec => rec.Id == id);
+            if (element != null)
             {
-                // требуется дополнительно получить список ингредиентов для мороженого и их количество
-                List<IceCreamIngredientViewModel> IceCreamIngredients = new
-                List<IceCreamIngredientViewModel>();
-                for (int j = 0; j < source.IceCreamIngredients.Count; ++j)
+                return new IceCreamViewModel
                 {
-                    if (source.IceCreamIngredients[j].IceCreamId == source.IceCreams[i].Id)
-                    {
-                        string IngredientName = string.Empty;
-                        for (int k = 0; k < source.Ingredients.Count; ++k)
+                    Id = element.Id,
+                    IceCreamName = element.IceCreamName,
+                    Price = element.Price,
+                    IceCreamIngredients = source.IceCreamIngredients
+                        .Where(recPC => recPC.IceCreamId == element.Id)
+                        .Select(recPC => new IceCreamIngredientViewModel
                         {
-                            if (source.IceCreamIngredients[j].IngredientId ==
-                            source.Ingredients[k].Id)
-                            {
-                                IngredientName = source.Ingredients[k].IngredientName;
-                                break;
-                            }
-                        }
-                        IceCreamIngredients.Add(new IceCreamIngredientViewModel
-                        {
-                            Id = source.IceCreamIngredients[j].Id,
-                            IceCreamId = source.IceCreamIngredients[j].IceCreamId,
-                            IngredientId = source.IceCreamIngredients[j].IngredientId,
-                            IngredientName = IngredientName,
-                            Count = source.IceCreamIngredients[j].Count
-                        });
-                    }
-                }
-                if (source.IceCreams[i].Id == id)
-                {
-                    return new IceCreamViewModel
-                    {
-                        Id = source.IceCreams[i].Id,
-                        IceCreamName = source.IceCreams[i].IceCreamName,
-                        Price = source.IceCreams[i].Price,
-                        IceCreamIngredients = IceCreamIngredients
-                    };
-                }
+                            Id = recPC.Id,
+                            IceCreamId = recPC.IceCreamId,
+                            IngredientId = recPC.IngredientId,
+                            IngredientName = source.Ingredients.FirstOrDefault(recC => recC.Id == recPC.IngredientId)?.IngredientName,
+                            Count = recPC.Count
+                        })
+                .ToList()
+                };
             }
             throw new Exception("Элемент не найден");
         }
 
         public void AddElement(IceCreamBindingModel model)
         {
-            int maxId = 0;
-            for (int i = 0; i < source.IceCreams.Count; ++i)
+            IceCream element = source.IceCreams.FirstOrDefault(rec => rec.IceCreamName == model.IceCreamName);
+            if (element != null)
             {
-                if (source.IceCreams[i].Id > maxId)
-                {
-                    maxId = source.IceCreams[i].Id;
-                }
-                if (source.IceCreams[i].IceCreamName == model.IceCreamName)
-                {
-                    throw new Exception("Уже есть мороженое с таким названием");
-                }
+                throw new Exception("Уже есть мороженое с таким названием");
             }
+            int maxId = source.IceCreams.Count > 0 ? source.IceCreams.Max(rec => rec.Id) : 0;
             source.IceCreams.Add(new IceCream
             {
                 Id = maxId + 1,
                 IceCreamName = model.IceCreamName,
                 Price = model.Price
             });
-            // ингредиенты для изделия
-            int maxPCId = 0;
-            for (int i = 0; i < source.IceCreamIngredients.Count; ++i)
-            {
-                if (source.IceCreamIngredients[i].Id > maxPCId)
-                {
-                    maxPCId = source.IceCreamIngredients[i].Id;
-                }
-            }
+
+            // ингредиенты для мороженого
+            int maxPCId = source.IceCreamIngredients.Count > 0 ? source.IceCreamIngredients.Max(rec => rec.Id) : 0;
+
             // убираем дубли по ингредиентам
-            for (int i = 0; i < model.IceCreamIngredients.Count; ++i)
-            {
-                for (int j = 1; j < model.IceCreamIngredients.Count; ++j)
+            var groupIngredients = model.IceCreamIngredients
+                .GroupBy(rec => rec.IngredientId)
+                .Select(rec => new
                 {
-                    if (model.IceCreamIngredients[i].IngredientId ==
-                    model.IceCreamIngredients[j].IngredientId)
-                    {
-                        model.IceCreamIngredients[i].Count +=
-                        model.IceCreamIngredients[j].Count;
-                        model.IceCreamIngredients.RemoveAt(j--);
-                    }
-                }
-            }
+                    IngredientId = rec.Key,
+                    Count = rec.Sum(r => r.Count)
+                });
+
             // добавляем ингредиенты
-            for (int i = 0; i < model.IceCreamIngredients.Count; ++i)
+            foreach (var groupIngredient in groupIngredients)
             {
                 source.IceCreamIngredients.Add(new IceCreamIngredient
                 {
                     Id = ++maxPCId,
                     IceCreamId = maxId + 1,
-                    IngredientId = model.IceCreamIngredients[i].IngredientId,
-                    Count = model.IceCreamIngredients[i].Count
+                    IngredientId = groupIngredient.IngredientId,
+                    Count = groupIngredient.Count
                 });
             }
         }
 
         public void UpdElement(IceCreamBindingModel model)
         {
-            int index = -1;
-            for (int i = 0; i < source.IceCreams.Count; ++i)
+            IceCream element = source.IceCreams.FirstOrDefault(rec => rec.IceCreamName == model.IceCreamName && rec.Id != model.Id);
+            if (element != null)
             {
-                if (source.IceCreams[i].Id == model.Id)
-                {
-                    index = i;
-                }
-                if (source.IceCreams[i].IceCreamName == model.IceCreamName &&
-                source.IceCreams[i].Id != model.Id)
-                {
-                    throw new Exception("Уже есть мороженое с таким названием");
-                }
+                throw new Exception("Уже есть мороженое с таким названием");
             }
-            if (index == -1)
+            element = source.IceCreams.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            source.IceCreams[index].IceCreamName = model.IceCreamName;
-            source.IceCreams[index].Price = model.Price;
-            int maxPCId = 0;
-            for (int i = 0; i < source.IceCreamIngredients.Count; ++i)
-            {
-                if (source.IceCreamIngredients[i].Id > maxPCId)
-                {
-                    maxPCId = source.IceCreamIngredients[i].Id;
-                }
-            }
+            element.IceCreamName = model.IceCreamName;
+            element.Price = model.Price;
+            int maxPCId = source.IceCreamIngredients.Count > 0 ?
+            source.IceCreamIngredients.Max(rec => rec.Id) : 0;
+
             // обновляем существуюущие ингредиенты
-            for (int i = 0; i < source.IceCreamIngredients.Count; ++i)
+            var compIds = model.IceCreamIngredients.Select(rec =>
+            rec.IngredientId).Distinct();
+            var updateIngredients = source.IceCreamIngredients.Where(rec => rec.IceCreamId ==
+            model.Id && compIds.Contains(rec.IngredientId));
+            foreach (var updateIngredient in updateIngredients)
             {
-                if (source.IceCreamIngredients[i].IceCreamId == model.Id)
-                {
-                    bool flag = true;
-                    for (int j = 0; j < model.IceCreamIngredients.Count; ++j)
-                    {
-                        // если встретили, то изменяем количество
-                        if (source.IceCreamIngredients[i].Id ==
-                        model.IceCreamIngredients[j].Id)
-                        {
-                            source.IceCreamIngredients[i].Count =
-                            model.IceCreamIngredients[j].Count;
-                            flag = false;
-                            break;
-                        }
-                    }
-                    // если не встретили, то удаляем
-                    if (flag)
-                    {
-                        source.IceCreamIngredients.RemoveAt(i--);
-                    }
-                }
+                updateIngredient.Count = model.IceCreamIngredients.FirstOrDefault(rec => rec.Id == updateIngredient.Id).Count;
             }
+            source.IceCreamIngredients.RemoveAll(rec => rec.IceCreamId == model.Id && !compIds.Contains(rec.IngredientId));
+
             // новые записи
-            for (int i = 0; i < model.IceCreamIngredients.Count; ++i)
-            {
-                if (model.IceCreamIngredients[i].Id == 0)
+            var groupIngredients = model.IceCreamIngredients
+                .Where(rec => rec.Id == 0)
+                .GroupBy(rec => rec.IngredientId)
+                .Select(rec => new
                 {
-                    // ищем дубли
-                    for (int j = 0; j < source.IceCreamIngredients.Count; ++j)
+                    IngredientId = rec.Key,
+                    Count = rec.Sum(r => r.Count)
+                });
+            foreach (var groupIngredient in groupIngredients)
+            {
+                IceCreamIngredient elementPC = source.IceCreamIngredients.FirstOrDefault(rec => rec.IceCreamId == model.Id && rec.IngredientId == groupIngredient.IngredientId);
+                if (elementPC != null)
+                {
+                    elementPC.Count += groupIngredient.Count;
+                }
+                else
+                {
+                    source.IceCreamIngredients.Add(new IceCreamIngredient
                     {
-                        if (source.IceCreamIngredients[j].IceCreamId == model.Id &&
-                        source.IceCreamIngredients[j].IngredientId ==
-                        model.IceCreamIngredients[i].IngredientId)
-                        {
-                            source.IceCreamIngredients[j].Count +=
-                            model.IceCreamIngredients[i].Count;
-                            model.IceCreamIngredients[i].Id =
-                            source.IceCreamIngredients[j].Id;
-                            break;
-                        }
-                    }
-                    // если не нашли дубли, то новая запись
-                    if (model.IceCreamIngredients[i].Id == 0)
-                    {
-                        source.IceCreamIngredients.Add(new IceCreamIngredient
-                        {
-                            Id = ++maxPCId,
-                            IceCreamId = model.Id,
-                            IngredientId = model.IceCreamIngredients[i].IngredientId,
-                            Count = model.IceCreamIngredients[i].Count
-                        });
-                    }
+                        Id = ++maxPCId,
+                        IceCreamId = model.Id,
+                        IngredientId = groupIngredient.IngredientId,
+                        Count = groupIngredient.Count
+                    });
                 }
             }
         }
 
         public void DelElement(int id)
         {
-            // удаяем записи по ингредиентам при удалении изделия
-            for (int i = 0; i < source.IceCreamIngredients.Count; ++i)
+            IceCream element = source.IceCreams.FirstOrDefault(rec => rec.Id == id);
+            if (element != null)
             {
-                if (source.IceCreamIngredients[i].IceCreamId == id)
-                {
-                    source.IceCreamIngredients.RemoveAt(i--);
-                }
+                // удаяем записи по ингредиентам при удалении мороженого
+                source.IceCreamIngredients.RemoveAll(rec => rec.IceCreamId == id);
+                source.IceCreams.Remove(element);
             }
-            for (int i = 0; i < source.IceCreams.Count; ++i)
+            else
             {
-                if (source.IceCreams[i].Id == id)
-                {
-                    source.IceCreams.RemoveAt(i);
-                    return;
-                }
+                throw new Exception("Элемент не найден");
             }
-            throw new Exception("Элемент не найден");
         }
     }
 }
