@@ -113,7 +113,7 @@ namespace IceCreamShopView
                     CustomerId = Convert.ToInt32(comboBoxCustomer.SelectedValue),
                     IceCreamId = Convert.ToInt32(comboBoxIceCream.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
-                    Sum = Convert.ToInt32(textBoxSum.Text)
+                    Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

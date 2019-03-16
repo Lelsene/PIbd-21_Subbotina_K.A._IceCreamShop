@@ -14,5 +14,7 @@
         public string IngredientName { get; set; }
 
         public int Count { get; set; }
+
+        public virtual Ingredient Ingredient { get; set; }
     }
 }
