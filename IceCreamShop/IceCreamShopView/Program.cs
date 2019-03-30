@@ -32,6 +32,8 @@ namespace IceCreamShopView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IIceCreamService, IceCreamServiceDB>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IRecordService, RecordServiceDB>(new
+            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceDB>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IStorageService, StorageServiceDB>(new HierarchicalLifetimeManager());
