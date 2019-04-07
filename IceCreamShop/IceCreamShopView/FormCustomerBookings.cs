@@ -22,6 +22,7 @@ namespace IceCreamShopView
 
         private void buttonMake_Click(object sender, EventArgs e)
         {
+            recordViewer.RefreshReport();
             if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
             {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания",
@@ -80,11 +81,6 @@ namespace IceCreamShopView
                     MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void FormCustomerBookings_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
