@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FormBooking.aspx.cs" Inherits="IceCreamShopWeb.FormBooking" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FormCreateBooking.aspx.cs" Inherits="IceCreamShopWeb.FormCreateBooking" %>
 
 <!DOCTYPE html>
 
@@ -9,13 +9,14 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-        Покупатель&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div>
+    
+        Клиент&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="DropDownListCustomer" runat="server" Height="16px" Width="285px">
         </asp:DropDownList>
         <br />
         <br />
-        Мороженое &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        Изделие &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         <asp:DropDownList ID="DropDownListIceCream" runat="server" Height="16px" Width="285px">
         </asp:DropDownList>
         <br />
@@ -28,9 +29,8 @@
         <asp:Button ID="ButtonSave" runat="server" Text="Сохранить" OnClick="ButtonSave_Click" />
         &nbsp;&nbsp;
         <asp:Button ID="ButtonCancel" runat="server" Text="Отмена" OnClick="ButtonCancel_Click" />
-
-
-        </div>
+    
+    </div>
     </form>
 </body>
 </html>

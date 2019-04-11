@@ -67,17 +67,75 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FormBooking.aspx" />
+    <Content Include="FormCreateBooking.aspx" />
+    <Content Include="FormCustomer.aspx" />
+    <Content Include="FormCustomers.aspx" />
+    <Content Include="FormIceCream.aspx" />
+    <Content Include="FormIceCreamIngredient.aspx" />
+    <Content Include="FormIceCreams.aspx" />
+    <Content Include="FormIngredient.aspx" />
+    <Content Include="FormIngredients.aspx" />
     <Content Include="FormMain.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormBooking.aspx.cs">
-      <DependentUpon>FormBooking.aspx</DependentUpon>
+    <Compile Include="FormCreateBooking.aspx.cs">
+      <DependentUpon>FormCreateBooking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="FormBooking.aspx.designer.cs">
-      <DependentUpon>FormBooking.aspx</DependentUpon>
+    <Compile Include="FormCreateBooking.aspx.designer.cs">
+      <DependentUpon>FormCreateBooking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomer.aspx.cs">
+      <DependentUpon>FormCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormCustomer.aspx.designer.cs">
+      <DependentUpon>FormCustomer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormCustomers.aspx.cs">
+      <DependentUpon>FormCustomers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormCustomers.aspx.designer.cs">
+      <DependentUpon>FormCustomers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormIceCream.aspx.cs">
+      <DependentUpon>FormIceCream.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormIceCream.aspx.designer.cs">
+      <DependentUpon>FormIceCream.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormIceCreamIngredient.aspx.cs">
+      <DependentUpon>FormIceCreamIngredient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormIceCreamIngredient.aspx.designer.cs">
+      <DependentUpon>FormIceCreamIngredient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormIceCreams.aspx.cs">
+      <DependentUpon>FormIceCreams.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormIceCreams.aspx.designer.cs">
+      <DependentUpon>FormIceCreams.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormIngredient.aspx.cs">
+      <DependentUpon>FormIngredient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormIngredient.aspx.designer.cs">
+      <DependentUpon>FormIngredient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormIngredients.aspx.cs">
+      <DependentUpon>FormIngredients.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormIngredients.aspx.designer.cs">
+      <DependentUpon>FormIngredients.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormMain.aspx.cs">
       <DependentUpon>FormMain.aspx</DependentUpon>

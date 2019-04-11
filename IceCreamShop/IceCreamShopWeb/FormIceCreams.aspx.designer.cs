@@ -10,7 +10,7 @@
 namespace IceCreamShopWeb {
     
     
-    public partial class FormBooking {
+    public partial class FormIceCreams {
         
         /// <summary>
         /// form1 элемент управления.
@@ -22,57 +22,66 @@ namespace IceCreamShopWeb {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// DropDownListCustomer элемент управления.
+        /// ButtonAdd элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListCustomer;
+        protected global::System.Web.UI.WebControls.Button ButtonAdd;
         
         /// <summary>
-        /// DropDownListIceCream элемент управления.
+        /// ButtonChange элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListIceCream;
+        protected global::System.Web.UI.WebControls.Button ButtonChange;
         
         /// <summary>
-        /// TextBoxCount элемент управления.
+        /// ButtonDelete элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxCount;
+        protected global::System.Web.UI.WebControls.Button ButtonDelete;
         
         /// <summary>
-        /// TextBoxSum элемент управления.
+        /// ButtonUpd элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxSum;
+        protected global::System.Web.UI.WebControls.Button ButtonUpd;
         
         /// <summary>
-        /// ButtonSave элемент управления.
+        /// dataGridView элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonSave;
+        protected global::System.Web.UI.WebControls.GridView dataGridView;
         
         /// <summary>
-        /// ButtonCancel элемент управления.
+        /// ButtonBack элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCancel;
+        protected global::System.Web.UI.WebControls.Button ButtonBack;
+        
+        /// <summary>
+        /// ObjectDataSource1 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
     }
 }

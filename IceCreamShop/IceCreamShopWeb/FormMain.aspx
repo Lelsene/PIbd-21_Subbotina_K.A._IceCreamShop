@@ -20,7 +20,7 @@
             <Items>
                 <asp:MenuItem Text="Справочники" Value="Справочники">
                     <asp:MenuItem Text="Покупатели" Value="Покупатели" NavigateUrl="~/FormCustomers.aspx"></asp:MenuItem>
-                    <asp:MenuItem Text="Ингредиенты" Value="Ингредиенты" NavigateUrl="~/FormIngridients.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Ингредиенты" Value="Ингредиенты" NavigateUrl="~/FormIngredients.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="Мороженое" Value="Мороженое" NavigateUrl="~/FormIceCreams.aspx"></asp:MenuItem>
                 </asp:MenuItem>
             </Items>

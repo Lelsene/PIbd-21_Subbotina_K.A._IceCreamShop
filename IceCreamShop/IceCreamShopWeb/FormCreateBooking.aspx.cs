@@ -4,11 +4,14 @@ using IceCreamShopServiceDAL.ViewModels;
 using IceCreamShopServiceImplement.Implementations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace IceCreamShopWeb
 {
-    public partial class FormBooking : System.Web.UI.Page
+    public partial class FormCreateBooking : System.Web.UI.Page
     {
         private readonly ICustomerService serviceC = new CustomerServiceList();
 
@@ -25,7 +28,7 @@ namespace IceCreamShopWeb
                 {
                     DropDownListCustomer.DataSource = listC;
                     DropDownListCustomer.DataBind();
-                    DropDownListCustomer.DataTextField = "CustomerName";
+                    DropDownListCustomer.DataTextField = "CustomerFIO";
                     DropDownListCustomer.DataValueField = "Id";
                 }
                 List<IceCreamViewModel> listP = serviceS.GetList();

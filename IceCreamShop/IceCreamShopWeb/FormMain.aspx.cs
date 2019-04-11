@@ -37,7 +37,7 @@ namespace IceCreamShopWeb
 
         protected void ButtonCreateBooking_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormBooking.aspx");
+            Server.Transfer("FormCreateBooking.aspx");
         }
 
         protected void ButtonTakeBookingInWork_Click(object sender, EventArgs e)
