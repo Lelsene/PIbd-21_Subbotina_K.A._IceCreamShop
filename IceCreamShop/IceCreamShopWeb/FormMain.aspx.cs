@@ -1,13 +1,10 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceImplement.Implementations;
 using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
+using IceCreamShopServiceImplement.Implementations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace IceCreamShopWeb
 {
@@ -46,13 +43,10 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    //string index = list[dataGridView1.SelectedIndex].Id.ToString();
-                    //Session["id"] = index;
                     int id = list[dataGridView1.SelectedIndex].Id;
                     service.TakeBookingInWork(new BookingBindingModel { Id = id });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
-                    //Server.Transfer("TakeBookingInWork.aspx");
                 }
                 catch (Exception ex)
                 {
