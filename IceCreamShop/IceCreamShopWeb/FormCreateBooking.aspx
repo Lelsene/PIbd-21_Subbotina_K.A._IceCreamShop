@@ -11,12 +11,12 @@
     <form id="form1" runat="server">
     <div>
     
-        Клиент&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Покупатель&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="DropDownListCustomer" runat="server" Height="16px" Width="285px">
         </asp:DropDownList>
         <br />
         <br />
-        Изделие &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        Мороженое &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         <asp:DropDownList ID="DropDownListIceCream" runat="server" Height="16px" Width="285px">
         </asp:DropDownList>
         <br />
