@@ -14,8 +14,9 @@
         Название&nbsp;&nbsp;
         <asp:TextBox ID="textBoxName" runat="server" Width="232px"></asp:TextBox>
         <br />
+        <br />
         <asp:Button ID="ButtonSave" runat="server" OnClick="ButtonSave_Click" Text="Сохранить" />
-        <asp:Button ID="ButtonCancel" runat="server" OnClick="ButtonCancel_Click" Text="Отмена" />
+        <asp:Button ID="ButtonCancel" runat="server" OnClick="ButtonCancel_Click" Text="Отмена" Height="25px" Width="63px" />
     
     </div>
     </form>

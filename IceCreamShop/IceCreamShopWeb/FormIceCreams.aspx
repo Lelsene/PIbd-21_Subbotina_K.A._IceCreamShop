@@ -25,7 +25,6 @@
             <SelectedRowStyle BackColor="#CCCCCC" />
         </asp:GridView>
         <br />
-        <br />
         <asp:Button ID="ButtonBack" runat="server" Text="Вернуться" OnClick="ButtonBack_Click" />
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetList" TypeName="IceCreamShopServiceImplement.Implementations.IceCreamServiceList"></asp:ObjectDataSource>
     

@@ -209,7 +209,7 @@ namespace IceCreamShopWeb
             }
             if (IceCreamIngredient == null || IceCreamIngredient.Count == 0)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните компоненты');</script>");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните ингредиенты');</script>");
                 return;
             }
             try

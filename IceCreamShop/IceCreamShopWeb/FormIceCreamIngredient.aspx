@@ -11,13 +11,12 @@
     <form id="form1" runat="server">
     <div>
     
-        Ингредиент&nbsp;&nbsp;
+        Ингредиент&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="DropDownListIngredient" runat="server" Height="16px" Width="200px">
         </asp:DropDownList>
         <br />
         <br />
-        Количество&nbsp;
-        <asp:TextBox ID="TextBoxCount" runat="server" Width="194px"></asp:TextBox>
+        Количество&nbsp;&nbsp;&nbsp; <asp:TextBox ID="TextBoxCount" runat="server" Width="194px"></asp:TextBox>
         <br />
         <br />
         <asp:Button ID="ButtonSave" runat="server" OnClick="ButtonSave_Click" Text="Сохранить" />

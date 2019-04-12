@@ -85,12 +85,12 @@ namespace IceCreamShopWeb
             }
             if (DropDownListCustomer.SelectedValue == null)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите клиента');</script>");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите покупателя');</script>");
                 return;
             }
             if (DropDownListIceCream.SelectedValue == null)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите изделие');</script>");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите мороженое');</script>");
                 return;
             }
             try

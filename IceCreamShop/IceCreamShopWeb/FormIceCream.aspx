@@ -11,11 +11,11 @@
     <form id="form1" runat="server">
     <div>
     
-        Название
+        Название&nbsp;&nbsp;
         <asp:TextBox ID="textBoxName" runat="server" Width="200px"></asp:TextBox>
         <br />
         <br />
-        Цена&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Цена&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
         <asp:TextBox ID="textBoxPrice" runat="server" Width="200px"></asp:TextBox>
         <br />
         <br />
@@ -31,7 +31,7 @@
         </asp:GridView>
         <br />
         <asp:Button ID="ButtonSave" runat="server" Text="Сохранить" OnClick="ButtonSave_Click" />
-        <asp:Button ID="ButtonCancel" runat="server" Text="Отмена" OnClick="ButtonCancel_Click" />
+        <asp:Button ID="ButtonCancel" runat="server" Text="Отмена" OnClick="ButtonCancel_Click" Height="25px" Width="61px" />
     
     </div>
     </form>

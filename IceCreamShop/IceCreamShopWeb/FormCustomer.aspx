@@ -12,11 +12,12 @@
     <div style="height: 271px">
     
         <br />
-        ФИО&nbsp;
+        ФИО&nbsp;&nbsp; &nbsp;
         <asp:TextBox ID="textBoxName" runat="server" Height="16px" Width="280px"></asp:TextBox>
         <br />
+        <br />
         <asp:Button ID="ButtonSave" runat="server" OnClick="ButtonSave_Click" Text="Сохранить" />
-        <asp:Button ID="ButtonCancel" runat="server" OnClick="ButtonCancel_Click" Text="Отмена" Height="25px" />
+        <asp:Button ID="ButtonCancel" runat="server" OnClick="ButtonCancel_Click" Text="Отмена" Height="25px" Width="67px" />
     
     </div>
     </form>
