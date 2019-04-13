@@ -22,7 +22,7 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    IngredientViewModel view = APICustomer.GetRequest<IngredientViewModel>("api/Ingredient/Get/" + id.Value);
+                    IngredientViewModel view = APIClient.GetRequest<IngredientViewModel>("api/Ingredient/Get/" + id.Value);
                     textBoxName.Text = view.IngredientName;
                 }
                 catch (Exception ex)
@@ -45,7 +45,7 @@ namespace IceCreamShopView
             {
                 if (id.HasValue)
                 {
-                    APICustomer.PostRequest<IngredientBindingModel,
+                    APIClient.PostRequest<IngredientBindingModel,
                     bool>("api/Ingredient/UpdElement", new IngredientBindingModel
                     {
                         Id = id.Value,
@@ -54,7 +54,7 @@ namespace IceCreamShopView
                 }
                 else
                 {
-                    APICustomer.PostRequest<IngredientBindingModel,
+                    APIClient.PostRequest<IngredientBindingModel,
                     bool>("api/Ingredient/AddElement", new IngredientBindingModel
                     {
                         IngredientName = textBoxName.Text

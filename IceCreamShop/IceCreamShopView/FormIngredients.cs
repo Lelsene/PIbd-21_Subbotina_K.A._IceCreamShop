@@ -24,7 +24,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<IngredientViewModel> list = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
+                List<IngredientViewModel> list = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -75,7 +75,7 @@ namespace IceCreamShopView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APICustomer.PostRequest<IngredientBindingModel,
+                        APIClient.PostRequest<IngredientBindingModel,
                         bool>("api/Ingredient/DelElement", new IngredientBindingModel { Id = id });
                     }
                     catch (Exception ex)

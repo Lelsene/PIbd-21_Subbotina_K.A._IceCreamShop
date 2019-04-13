@@ -17,7 +17,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<CustomerViewModel> listC = APICustomer.GetRequest<List<CustomerViewModel>>("api/Customer/GetList");
+                List<CustomerViewModel> listC = APIClient.GetRequest<List<CustomerViewModel>>("api/Customer/GetList");
                 if (listC != null)
                 {
                     comboBoxCustomer.DisplayMember = "CustomerFIO";
@@ -25,7 +25,7 @@ namespace IceCreamShopView
                     comboBoxCustomer.DataSource = listC;
                     comboBoxCustomer.SelectedItem = null;
                 }
-                List<IceCreamViewModel> listP = APICustomer.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList");
+                List<IceCreamViewModel> listP = APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList");
                 if (listP != null)
                 {
                     comboBoxIceCream.DisplayMember = "IceCreamName";
@@ -49,7 +49,7 @@ namespace IceCreamShopView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxIceCream.SelectedValue);
-                    IceCreamViewModel IceCream = APICustomer.GetRequest<IceCreamViewModel>("api/CreateBooking/Get/" + id);
+                    IceCreamViewModel IceCream = APIClient.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * IceCream.Price).ToString();
                 }
@@ -93,7 +93,7 @@ namespace IceCreamShopView
             }
             try
             {
-                APICustomer.PostRequest<BookingBindingModel,
+                APIClient.PostRequest<BookingBindingModel,
                 bool>("api/Main/CreateBooking", new BookingBindingModel
                 {
                     CustomerId = Convert.ToInt32(comboBoxCustomer.SelectedValue),

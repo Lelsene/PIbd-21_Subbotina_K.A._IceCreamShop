@@ -22,7 +22,7 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    CustomerViewModel customer = APICustomer.GetRequest<CustomerViewModel>("api/Customer/Get/" + id.Value);
+                    CustomerViewModel customer = APIClient.GetRequest<CustomerViewModel>("api/Customer/Get/" + id.Value);
                     textBoxFIO.Text = customer.CustomerFIO;
                 }
                 catch (Exception ex)
@@ -45,7 +45,7 @@ namespace IceCreamShopView
             {
                 if (id.HasValue)
                 {
-                    APICustomer.PostRequest<CustomerBindingModel,
+                    APIClient.PostRequest<CustomerBindingModel,
                     bool>("api/Customer/UpdElement", new CustomerBindingModel
                     {
                         Id = id.Value,
@@ -54,7 +54,7 @@ namespace IceCreamShopView
                 }
                 else
                 {
-                    APICustomer.PostRequest<CustomerBindingModel,
+                    APIClient.PostRequest<CustomerBindingModel,
                     bool>("api/Customer/AddElement", new CustomerBindingModel
                     {
                         CustomerFIO = textBoxFIO.Text

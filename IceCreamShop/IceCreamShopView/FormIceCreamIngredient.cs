@@ -27,7 +27,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<IngredientViewModel> list = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
+                List<IngredientViewModel> list = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";

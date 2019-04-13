@@ -32,8 +32,8 @@ namespace IceCreamShopView
                 recordViewer.LocalReport.SetParameters(parameter);
 
                 List<CustomerBookingsModel> response =
-                APICustomer.PostRequest<RecordBindingModel,
-                List<CustomerBookingsModel>>("api/Report/GetCustomerBookings", new RecordBindingModel
+                APIClient.PostRequest<RecordBindingModel,
+                List<CustomerBookingsModel>>("api/Record/GetCustomerBookings", new RecordBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
@@ -65,8 +65,8 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    APICustomer.PostRequest<RecordBindingModel,
-                    bool>("api/Report/SaveCustomerBookings", new RecordBindingModel
+                    APIClient.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveCustomerBookings", new RecordBindingModel
                     {
                         FileName = sfd.FileName,
                         DateFrom = dateTimePickerFrom.Value,

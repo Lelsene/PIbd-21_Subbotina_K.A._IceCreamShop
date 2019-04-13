@@ -17,7 +17,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<BookingViewModel> list = APICustomer.GetRequest<List<BookingViewModel>>("api/Main/GetList");
+                List<BookingViewModel> list = APIClient.GetRequest<List<BookingViewModel>>("api/Main/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -76,8 +76,8 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    APICustomer.PostRequest<RecordBindingModel,
-                    bool>("api/Record/SaveProductPrice", new RecordBindingModel
+                    APIClient.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveIceCreamPrice", new RecordBindingModel
                     {
                         FileName = sfd.FileName
                     });
@@ -119,7 +119,7 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    APICustomer.PostRequest<BookingBindingModel,
+                    APIClient.PostRequest<BookingBindingModel,
                     bool>("api/Main/TakeBookingInWork", new BookingBindingModel
                     {
                         Id = id
@@ -141,7 +141,7 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    APICustomer.PostRequest<BookingBindingModel,
+                    APIClient.PostRequest<BookingBindingModel,
                     bool>("api/Main/FinishBooking", new BookingBindingModel
                     {
                         Id = id
@@ -163,8 +163,8 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    APICustomer.PostRequest<BookingBindingModel,
-                    bool>("api/Main/.PayBooking", new BookingBindingModel
+                    APIClient.PostRequest<BookingBindingModel,
+                    bool>("api/Main/PayBooking", new BookingBindingModel
                     {
                         Id = id
                     });

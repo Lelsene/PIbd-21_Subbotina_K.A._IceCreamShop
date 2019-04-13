@@ -25,7 +25,7 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    IceCreamViewModel view = APICustomer.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id.Value);
+                    IceCreamViewModel view = APIClient.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id.Value);
                     if (view != null)
                     {
                         textBoxName.Text = view.IceCreamName;
@@ -163,7 +163,7 @@ namespace IceCreamShopView
                 }
                 if (id.HasValue)
                 {
-                    APICustomer.PostRequest<IceCreamBindingModel,
+                    APIClient.PostRequest<IceCreamBindingModel,
                     bool>("api/IceCream/UpdElement", new IceCreamBindingModel
                     {
                         Id = id.Value,
@@ -174,7 +174,7 @@ namespace IceCreamShopView
                 }
                 else
                 {
-                    APICustomer.PostRequest<IceCreamBindingModel,
+                    APIClient.PostRequest<IceCreamBindingModel,
                     bool>("api/IceCream/AddElement", new IceCreamBindingModel
                     {
                         IceCreamName = textBoxName.Text,

@@ -88,7 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APICustomer.cs" />
+    <Compile Include="APIClient.cs" />
     <Compile Include="FormCreateBooking.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +269,10 @@
     <ProjectReference Include="..\IceCreamShopModel\IceCreamShopModel.csproj">
       <Project>{2ab240a2-75a7-4b74-97fb-66ee0558632b}</Project>
       <Name>IceCreamShopModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IceCreamShopRestApi\IceCreamShopRestApi.csproj">
+      <Project>{6eb0ec42-0c74-4837-be6e-114972c09703}</Project>
+      <Name>IceCreamShopRestApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\IceCreamShopServiceDAL\IceCreamShopServiceDAL.csproj">
       <Project>{50bf1cc6-a292-476e-8e20-0b474c477f1b}</Project>

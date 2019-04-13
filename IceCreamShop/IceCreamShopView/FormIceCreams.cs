@@ -22,7 +22,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<IceCreamViewModel> list = APICustomer.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList");
+                List<IceCreamViewModel> list = APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -73,7 +73,7 @@ namespace IceCreamShopView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APICustomer.PostRequest<IceCreamBindingModel,
+                        APIClient.PostRequest<IceCreamBindingModel,
                         bool>("api/IceCream/DelElement", new IceCreamBindingModel { Id = id });
                     }
                     catch (Exception ex)

@@ -16,7 +16,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<IngredientViewModel> listC = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
+                List<IngredientViewModel> listC = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (listC != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";
@@ -24,7 +24,7 @@ namespace IceCreamShopView
                     comboBoxIngredient.DataSource = listC;
                     comboBoxIngredient.SelectedItem = null;
                 }
-                List<StorageViewModel> listS = APICustomer.GetRequest<List<StorageViewModel>>("api/Storage/GetList");
+                List<StorageViewModel> listS = APIClient.GetRequest<List<StorageViewModel>>("api/Storage/GetList");
                 if (listS != null)
                 {
                     comboBoxStorage.DisplayMember = "StorageName";
@@ -61,7 +61,7 @@ namespace IceCreamShopView
             }
             try
             {
-                APICustomer.PostRequest<StorageIngredientBindingModel,
+                APIClient.PostRequest<StorageIngredientBindingModel,
                 bool>("api/Main/PutIngredientOnStorage", new StorageIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(comboBoxIngredient.SelectedValue),

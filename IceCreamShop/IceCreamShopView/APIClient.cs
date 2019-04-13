@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 
 namespace IceCreamShopView
 {
-    public static class APICustomer
+    public static class APIClient
     {
         private static HttpClient customer = new HttpClient();
 
