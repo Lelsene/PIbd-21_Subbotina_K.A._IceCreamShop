@@ -63,6 +63,7 @@ namespace IceCreamShopWeb
                         Count = (int)Session["SECount"]
                     };
                     this.icecreamIngredients[(int)Session["SEIs"]] = model;
+                    Session["Change"] = "0";
                 }
                 else
                 {
