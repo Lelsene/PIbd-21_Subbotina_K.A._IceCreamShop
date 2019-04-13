@@ -1,36 +1,22 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormPutOnStorage : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IStorageService serviceS;
-
-        private readonly IIngredientService serviceC;
-
-        private readonly IMainService serviceM;
-
-        public FormPutOnStorage(IStorageService serviceS, IIngredientService serviceC, IMainService serviceM)
+        public FormPutOnStorage()
         {
             InitializeComponent();
-            this.serviceS = serviceS;
-            this.serviceC = serviceC;
-            this.serviceM = serviceM;
         }
         private void FormPutOnStorage_Load(object sender, EventArgs e)
         {
             try
             {
-                List<IngredientViewModel> listC = serviceC.GetList();
+                List<IngredientViewModel> listC = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (listC != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";
@@ -38,7 +24,7 @@ namespace IceCreamShopView
                     comboBoxIngredient.DataSource = listC;
                     comboBoxIngredient.SelectedItem = null;
                 }
-                List<StorageViewModel> listS = serviceS.GetList();
+                List<StorageViewModel> listS = APICustomer.GetRequest<List<StorageViewModel>>("api/Storage/GetList");
                 if (listS != null)
                 {
                     comboBoxStorage.DisplayMember = "StorageName";
@@ -75,7 +61,8 @@ namespace IceCreamShopView
             }
             try
             {
-                serviceM.PutIngredientOnStorage(new StorageIngredientBindingModel
+                APICustomer.PostRequest<StorageIngredientBindingModel,
+                bool>("api/Main/PutIngredientOnStorage", new StorageIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(comboBoxIngredient.SelectedValue),
                     StorageId = Convert.ToInt32(comboBoxStorage.SelectedValue),

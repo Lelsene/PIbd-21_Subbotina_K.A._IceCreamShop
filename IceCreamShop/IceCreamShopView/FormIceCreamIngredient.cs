@@ -1,17 +1,12 @@
-﻿using IceCreamShopServiceDAL.Interfaces;
-using IceCreamShopServiceDAL.ViewModels;
+﻿using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormIceCreamIngredient : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public IceCreamIngredientViewModel Model
         {
             set { model = value; }
@@ -21,21 +16,18 @@ namespace IceCreamShopView
             }
         }
 
-        private readonly IIngredientService service;
-
         private IceCreamIngredientViewModel model;
 
-        public FormIceCreamIngredient(IIngredientService service)
+        public FormIceCreamIngredient()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormIceCreamIngredient_Load(object sender, EventArgs e)
         {
             try
             {
-                List<IngredientViewModel> list = service.GetList();
+                List<IngredientViewModel> list = APICustomer.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                 if (list != null)
                 {
                     comboBoxIngredient.DisplayMember = "IngredientName";

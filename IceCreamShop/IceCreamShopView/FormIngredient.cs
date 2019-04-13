@@ -1,27 +1,19 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormIngredient : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
-        private readonly IIngredientService service;
 
         private int? id;
 
-        public FormIngredient(IIngredientService service)
+        public FormIngredient()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormIngredient_Load(object sender, EventArgs e)
@@ -30,11 +22,8 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    IngredientViewModel view = service.GetElement(id.Value);
-                    if (view != null)
-                    {
-                        textBoxName.Text = view.IngredientName;
-                    }
+                    IngredientViewModel view = APICustomer.GetRequest<IngredientViewModel>("api/Ingredient/Get/" + id.Value);
+                    textBoxName.Text = view.IngredientName;
                 }
                 catch (Exception ex)
                 {
@@ -56,7 +45,8 @@ namespace IceCreamShopView
             {
                 if (id.HasValue)
                 {
-                    service.UpdElement(new IngredientBindingModel
+                    APICustomer.PostRequest<IngredientBindingModel,
+                    bool>("api/Ingredient/UpdElement", new IngredientBindingModel
                     {
                         Id = id.Value,
                         IngredientName = textBoxName.Text
@@ -64,7 +54,8 @@ namespace IceCreamShopView
                 }
                 else
                 {
-                    service.AddElement(new IngredientBindingModel
+                    APICustomer.PostRequest<IngredientBindingModel,
+                    bool>("api/Ingredient/AddElement", new IngredientBindingModel
                     {
                         IngredientName = textBoxName.Text
                     });

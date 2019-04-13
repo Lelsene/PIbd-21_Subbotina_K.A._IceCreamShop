@@ -1,23 +1,16 @@
-﻿using IceCreamShopServiceDAL.Interfaces;
+﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormIceCreams : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IIceCreamService service;
-
-        public FormIceCreams(IIceCreamService service)
+        public FormIceCreams()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormIceCreams_Load(object sender, EventArgs e)
@@ -29,7 +22,7 @@ namespace IceCreamShopView
         {
             try
             {
-                List<IceCreamViewModel> list = service.GetList();
+                List<IceCreamViewModel> list = APICustomer.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -47,7 +40,7 @@ namespace IceCreamShopView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormIceCream>();
+            var form = new FormIceCream();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -58,8 +51,10 @@ namespace IceCreamShopView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormIceCream>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                var form = new FormIceCream
+                {
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value)
+                };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
@@ -78,7 +73,8 @@ namespace IceCreamShopView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        service.DelElement(id);
+                        APICustomer.PostRequest<IceCreamBindingModel,
+                        bool>("api/IceCream/DelElement", new IceCreamBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
