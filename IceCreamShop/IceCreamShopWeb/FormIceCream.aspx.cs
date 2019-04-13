@@ -17,7 +17,7 @@ namespace IceCreamShopWeb
 
         private int id;
 
-        private List<IceCreamIngredientViewModel> IceCreamIngredient;
+        private List<IceCreamIngredientViewModel> icecreamIngredients;
 
         private IceCreamIngredientViewModel model;
 
@@ -30,11 +30,15 @@ namespace IceCreamShopWeb
                     IceCreamViewModel view = service.GetElement(id);
                     if (view != null)
                     {
-                        textBoxName.Text = view.IceCreamName;
-                        textBoxPrice.Text = view.Price.ToString();
-                        this.IceCreamIngredient = view.IceCreamIngredients;
+                        if (!Page.IsPostBack)
+                        {
+                            textBoxName.Text = view.IceCreamName;
+                            textBoxPrice.Text = view.Price.ToString();
+                        }
+                        this.icecreamIngredients = view.IceCreamIngredients;
                         LoadData();
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -43,116 +47,100 @@ namespace IceCreamShopWeb
             }
             else
             {
-                if (service.GetList().Count == 0 || service.GetList().Last().IceCreamName != null)
-                {
-                    this.IceCreamIngredient = new List<IceCreamIngredientViewModel>();
-                    LoadData();
-                }
-                else
-                {
-                    this.IceCreamIngredient = service.GetList().Last().IceCreamIngredients;
-                    LoadData();
-                }
+                this.icecreamIngredients = new List<IceCreamIngredientViewModel>();
+
             }
             if (Session["SEId"] != null)
             {
-                model = new IceCreamIngredientViewModel
-                {
-                    Id = (int)Session["SEId"],
-                    IceCreamId = (int)Session["SEIceCreamId"],
-                    IngredientId = (int)Session["SEIngredientId"],
-                    IngredientName = (string)Session["SEIngredientName"],
-                    Count = (int)Session["SECount"]
-                };
                 if (Session["SEIs"] != null)
                 {
-                    this.IceCreamIngredient[(int)Session["SEIs"]] = model;
+                    model = new IceCreamIngredientViewModel
+                    {
+                        Id = (int)Session["SEId"],
+                        IceCreamId = (int)Session["SEIceCreamId"],
+                        IngredientId = (int)Session["SEIngredientId"],
+                        IngredientName = (string)Session["SEIngredientName"],
+                        Count = (int)Session["SECount"]
+                    };
+                    this.icecreamIngredients[(int)Session["SEIs"]] = model;
                 }
                 else
                 {
-                    this.IceCreamIngredient.Add(model);
+                    model = new IceCreamIngredientViewModel
+                    {
+                        IceCreamId = (int)Session["SEIceCreamId"],
+                        IngredientId = (int)Session["SEIngredientId"],
+                        IngredientName = (string)Session["SEIngredientName"],
+                        Count = (int)Session["SECount"]
+                    };
+                    this.icecreamIngredients.Add(model);
                 }
+                Session["SEId"] = null;
+                Session["SEIceCreamId"] = null;
+                Session["SEIngredientId"] = null;
+                Session["SEIngredientName"] = null;
+                Session["SECount"] = null;
+                Session["SEIs"] = null;
             }
-            List<IceCreamIngredientBindingModel> commodityIngredient = new List<IceCreamIngredientBindingModel>();
-            for (int i = 0; i < this.IceCreamIngredient.Count; ++i)
+            List<IceCreamIngredientBindingModel> icecreamIngredientBM = new List<IceCreamIngredientBindingModel>();
+            for (int i = 0; i < this.icecreamIngredients.Count; ++i)
             {
-                commodityIngredient.Add(new IceCreamIngredientBindingModel
+                icecreamIngredientBM.Add(new IceCreamIngredientBindingModel
                 {
-                    Id = this.IceCreamIngredient[i].Id,
-                    IceCreamId = this.IceCreamIngredient[i].IceCreamId,
-                    IngredientId = this.IceCreamIngredient[i].IngredientId,
-                    Count = this.IceCreamIngredient[i].Count
+                    Id = this.icecreamIngredients[i].Id,
+                    IceCreamId = this.icecreamIngredients[i].IceCreamId,
+                    IngredientId = this.icecreamIngredients[i].IngredientId,
+                    Count = this.icecreamIngredients[i].Count
                 });
             }
-            if (commodityIngredient.Count != 0)
+            if (icecreamIngredientBM.Count != 0)
             {
-                if (service.GetList().Count == 0 || service.GetList().Last().IceCreamName != null)
-                {
-                    service.AddElement(new IceCreamBindingModel
-                    {
-                        IceCreamName = null,
-                        Price = -1,
-                        IceCreamIngredients = commodityIngredient
-                    });
-                }
-                else
+                if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdElement(new IceCreamBindingModel
                     {
-                        Id = service.GetList().Last().Id,
-                        IceCreamName = null,
-                        Price = -1,
-                        IceCreamIngredients = commodityIngredient
+                        Id = id,
+                        IceCreamName = textBoxName.Text,
+                        Price = Convert.ToInt32(textBoxPrice.Text),
+                        IceCreamIngredients = icecreamIngredientBM
                     });
                 }
-
-            }
-            try
-            {
-                if (this.IceCreamIngredient != null)
+                else
                 {
-                    dataGridView.DataBind();
-                    dataGridView.DataSource = this.IceCreamIngredient;
-                    dataGridView.DataBind();
-                    dataGridView.ShowHeaderWhenEmpty = true;
-                    dataGridView.SelectedRowStyle.BackColor = Color.Silver;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].Visible = false;
+                    service.AddElement(new IceCreamBindingModel
+                    {
+                        IceCreamName = "-0",
+                        Price = 0,
+                        IceCreamIngredients = icecreamIngredientBM
+                    });
+                    Session["id"] = service.GetList().Last().Id.ToString();
+                    Session["Change"] = "0";
                 }
             }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
-            }
-            Session["SEId"] = null;
-            Session["SEIceCreamId"] = null;
-            Session["SEIngredientId"] = null;
-            Session["SEIngredientName"] = null;
-            Session["SECount"] = null;
-            Session["SEIs"] = null;
+            LoadData();
         }
 
         private void LoadData()
         {
             try
             {
-                if (IceCreamIngredient != null)
+                if (icecreamIngredients != null)
                 {
                     dataGridView.DataBind();
-                    dataGridView.DataSource = IceCreamIngredient;
+                    dataGridView.DataSource = icecreamIngredients;
                     dataGridView.DataBind();
                     dataGridView.ShowHeaderWhenEmpty = true;
                     dataGridView.SelectedRowStyle.BackColor = Color.Silver;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].Visible = false;
+                    //dataGridView.Columns[1].Visible = false;
+                    //dataGridView.Columns[2].Visible = false;
+                    //dataGridView.Columns[3].Visible = false;
                 }
             }
             catch (Exception ex)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
             }
+
         }
 
         protected void ButtonAdd_Click(object sender, EventArgs e)
@@ -164,12 +152,14 @@ namespace IceCreamShopWeb
         {
             if (dataGridView.SelectedIndex >= 0)
             {
+                model = service.GetElement(id).IceCreamIngredients[dataGridView.SelectedIndex];
                 Session["SEId"] = model.Id;
                 Session["SEIceCreamId"] = model.IceCreamId;
                 Session["SEIngredientId"] = model.IngredientId;
                 Session["SEIngredientName"] = model.IngredientName;
                 Session["SECount"] = model.Count;
                 Session["SEIs"] = dataGridView.SelectedIndex;
+                Session["Change"] = "0";
                 Server.Transfer("FormIceCreamIngredient.aspx");
             }
         }
@@ -180,7 +170,7 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    IceCreamIngredient.RemoveAt(dataGridView.SelectedIndex);
+                    icecreamIngredients.RemoveAt(dataGridView.SelectedIndex);
                 }
                 catch (Exception ex)
                 {
@@ -207,25 +197,25 @@ namespace IceCreamShopWeb
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните цену');</script>");
                 return;
             }
-            if (IceCreamIngredient == null || IceCreamIngredient.Count == 0)
+            if (icecreamIngredients == null || icecreamIngredients.Count == 0)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните ингредиенты');</script>");
                 return;
             }
             try
             {
-                List<IceCreamIngredientBindingModel> commodityIngredientBM = new List<IceCreamIngredientBindingModel>();
-                for (int i = 0; i < IceCreamIngredient.Count; ++i)
+                List<IceCreamIngredientBindingModel> icecreamIngredientBM = new List<IceCreamIngredientBindingModel>();
+                for (int i = 0; i < icecreamIngredients.Count; ++i)
                 {
-                    commodityIngredientBM.Add(new IceCreamIngredientBindingModel
+                    icecreamIngredientBM.Add(new IceCreamIngredientBindingModel
                     {
-                        Id = IceCreamIngredient[i].Id,
-                        IceCreamId = IceCreamIngredient[i].IceCreamId,
-                        IngredientId = IceCreamIngredient[i].IngredientId,
-                        Count = IceCreamIngredient[i].Count
+                        Id = icecreamIngredients[i].Id,
+                        IceCreamId = icecreamIngredients[i].IceCreamId,
+                        IngredientId = icecreamIngredients[i].IngredientId,
+                        Count = icecreamIngredients[i].Count
                     });
                 }
-                service.DelElement(service.GetList().Last().Id);
+                //service.DelElement(service.GetList().Last().Id);
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdElement(new IceCreamBindingModel
@@ -233,7 +223,7 @@ namespace IceCreamShopWeb
                         Id = id,
                         IceCreamName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
-                        IceCreamIngredients = commodityIngredientBM
+                        IceCreamIngredients = icecreamIngredientBM
                     });
                 }
                 else
@@ -242,10 +232,11 @@ namespace IceCreamShopWeb
                     {
                         IceCreamName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
-                        IceCreamIngredients = commodityIngredientBM
+                        IceCreamIngredients = icecreamIngredientBM
                     });
                 }
                 Session["id"] = null;
+                Session["Change"] = null;
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
                 Server.Transfer("FormIceCreams.aspx");
             }
@@ -261,7 +252,12 @@ namespace IceCreamShopWeb
             {
                 service.DelElement(service.GetList().Last().Id);
             }
+            if (!String.Equals(Session["Change"], null))
+            {
+                service.DelElement(id);
+            }
             Session["id"] = null;
+            Session["Change"] = null;
             Server.Transfer("FormIceCreams.aspx");
         }
 

@@ -21,29 +21,34 @@ namespace IceCreamShopWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (!Page.IsPostBack)
             {
-                List<CustomerViewModel> listC = serviceC.GetList();
-                if (listC != null)
+                try
                 {
-                    DropDownListCustomer.DataSource = listC;
-                    DropDownListCustomer.DataBind();
-                    DropDownListCustomer.DataTextField = "CustomerFIO";
-                    DropDownListCustomer.DataValueField = "Id";
+
+                    List<CustomerViewModel> listC = serviceC.GetList();
+                    if (listC != null)
+                    {
+                        DropDownListCustomer.DataSource = listC;
+                        DropDownListCustomer.DataBind();
+                        DropDownListCustomer.DataTextField = "CustomerFIO";
+                        DropDownListCustomer.DataValueField = "Id";
+                    }
+                    List<IceCreamViewModel> listP = serviceS.GetList();
+                    if (listP != null)
+                    {
+                        DropDownListIceCream.DataSource = listP;
+                        DropDownListIceCream.DataBind();
+                        DropDownListIceCream.DataTextField = "IceCreamName";
+                        DropDownListIceCream.DataValueField = "Id";
+                    }
+                    Page.DataBind();
+
                 }
-                List<IceCreamViewModel> listP = serviceS.GetList();
-                if (listP != null)
+                catch (Exception ex)
                 {
-                    DropDownListIceCream.DataSource = listP;
-                    DropDownListIceCream.DataBind();
-                    DropDownListIceCream.DataTextField = "IceCreamName";
-                    DropDownListIceCream.DataValueField = "Id";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
                 }
-                Page.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
             }
         }
 
@@ -64,11 +69,6 @@ namespace IceCreamShopWeb
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
                 }
             }
-        }
-
-        protected void DropDownListService_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CalcSum();
         }
 
         protected void TextBoxCount_TextChanged(object sender, EventArgs e)

@@ -16,7 +16,8 @@
         </asp:DropDownList>
         <br />
         <br />
-        Мороженое &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="DropDownListIceCream" runat="server" Height="16px" Width="285px">
+        Мороженое &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:DropDownList ID="DropDownListIceCream" runat="server" Height="16px" Width="285px">
         </asp:DropDownList>
         <br />
         <br />
