@@ -11,37 +11,49 @@ namespace IceCreamShopWeb
     {
         private readonly IIngredientService service = new IngredientServiceList();
 
-        private IceCreamIngredientViewModel model;
+        public IceCreamIngredientViewModel model;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (!Page.IsPostBack)
             {
-                List<IngredientViewModel> list = service.GetList();
-                if (list != null)
+                try
                 {
-                    if (!Page.IsPostBack)
+                    List<IngredientViewModel> list = service.GetList();
+                    if (list != null)
                     {
-                        DropDownListIngredient.DataSource = list;
-                        DropDownListIngredient.DataValueField = "Id";
-                        DropDownListIngredient.DataTextField = "IngredientName";
-                        //DropDownListIngredient.SelectedIndex = -1;
-                        Page.DataBind();
+                        {
+                            DropDownListIngredient.DataSource = list;
+                            DropDownListIngredient.DataValueField = "Id";
+                            DropDownListIngredient.DataTextField = "IngredientName";
+                            DropDownListIngredient.SelectedIndex = -1;
+                            Page.DataBind();
+                        }
                     }
-
+                }
+                catch (Exception ex)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
                 }
             }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
-            }
+
             if (Session["SEId"] != null)
             {
+                model = new IceCreamIngredientViewModel
+                {
+                    IngredientId = Convert.ToInt32(Session["SEIngredientId"]),
+                    IngredientName = Session["SEIngredientName"].ToString(),
+                    Count = Convert.ToInt32(Session["SECount"].ToString())
+                };
                 DropDownListIngredient.Enabled = false;
                 DropDownListIngredient.SelectedValue = Session["SEIngredientId"].ToString();
-                //DropDownListIngredient.SelectedValue = (string)Session["SEIngredientId"];
+            }
+
+            if ((Session["SEId"] != null) && (!Page.IsPostBack))
+            {
                 TextBoxCount.Text = Session["SECount"].ToString();
             }
+
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)
@@ -74,13 +86,13 @@ namespace IceCreamShopWeb
                 }
                 else
                 {
-
                     model.Count = Convert.ToInt32(TextBoxCount.Text);
                     Session["SEId"] = model.Id;
                     Session["SEServiceId"] = model.IceCreamId;
                     Session["SEIngredientId"] = model.IngredientId;
                     Session["SEIngredientName"] = model.IngredientName;
                     Session["SECount"] = model.Count;
+                    Session["Change"] = "1";
                 }
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
                 Server.Transfer("FormIceCream.aspx");

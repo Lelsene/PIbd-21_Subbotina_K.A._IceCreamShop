@@ -52,7 +52,7 @@ namespace IceCreamShopWeb
             }
             if (Session["SEId"] != null)
             {
-                if (Session["SEIs"] != null)
+                if ((Session["SEIs"] != null) && (Session["Change"].ToString() != "0"))
                 {
                     model = new IceCreamIngredientViewModel
                     {
@@ -131,9 +131,9 @@ namespace IceCreamShopWeb
                     dataGridView.DataBind();
                     dataGridView.ShowHeaderWhenEmpty = true;
                     dataGridView.SelectedRowStyle.BackColor = Color.Silver;
-                    //dataGridView.Columns[1].Visible = false;
-                    //dataGridView.Columns[2].Visible = false;
-                    //dataGridView.Columns[3].Visible = false;
+                    dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].Visible = false;
+                    dataGridView.Columns[3].Visible = false;
                 }
             }
             catch (Exception ex)
