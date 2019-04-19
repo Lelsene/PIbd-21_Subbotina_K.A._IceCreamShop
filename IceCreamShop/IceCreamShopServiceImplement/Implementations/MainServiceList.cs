@@ -63,7 +63,7 @@ namespace IceCreamShopServiceImplement.Implementations
             {
                 if (source.Bookings[i].Id > maxId)
                 {
-                    maxId = source.Customers[i].Id;
+                    maxId = source.Bookings[i].Id;
                 }
             }
             source.Bookings.Add(new Booking
@@ -106,7 +106,7 @@ namespace IceCreamShopServiceImplement.Implementations
             int index = -1;
             for (int i = 0; i < source.Bookings.Count; ++i)
             {
-                if (source.Customers[i].Id == model.Id)
+                if (source.Bookings[i].Id == model.Id)
                 {
                     index = i;
                     break;
@@ -128,7 +128,7 @@ namespace IceCreamShopServiceImplement.Implementations
             int index = -1;
             for (int i = 0; i < source.Bookings.Count; ++i)
             {
-                if (source.Customers[i].Id == model.Id)
+                if (source.Bookings[i].Id == model.Id)
                 {
                     index = i;
                     break;

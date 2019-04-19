@@ -11,7 +11,7 @@ namespace IceCreamShopWeb
     {
         private readonly IIngredientService service = new IngredientServiceList();
 
-        public IceCreamIngredientViewModel model;
+        private IceCreamIngredientViewModel model;
 
         protected void Page_Load(object sender, EventArgs e)
         {
