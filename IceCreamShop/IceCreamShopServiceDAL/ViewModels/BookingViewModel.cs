@@ -21,6 +21,12 @@ namespace IceCreamShopServiceDAL.ViewModels
         public string IceCreamName { get; set; }
 
         [DataMember]
+        public int? IcemanId { get; set; }
+
+        [DataMember]
+        public string IcemanName { get; set; }
+
+        [DataMember]
         public int Count { get; set; }
 
         [DataMember]

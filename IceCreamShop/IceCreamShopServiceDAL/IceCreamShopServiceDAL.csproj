@@ -48,6 +48,7 @@
     <Compile Include="BindingModels\CustomerBindingModel.cs" />
     <Compile Include="BindingModels\IceCreamBindingModel.cs" />
     <Compile Include="BindingModels\IceCreamIngredientBindingModel.cs" />
+    <Compile Include="BindingModels\IcemanBindingModel.cs" />
     <Compile Include="BindingModels\IngredientBindingModel.cs" />
     <Compile Include="BindingModels\BookingBindingModel.cs" />
     <Compile Include="BindingModels\RecordBindingModel.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="BindingModels\StorageBindingModel.cs" />
     <Compile Include="Interfaces\ICustomerService.cs" />
     <Compile Include="Interfaces\IIceCreamService.cs" />
+    <Compile Include="Interfaces\IIcemanService.cs" />
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
     <Compile Include="Interfaces\IRecordService.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\IceCreamIngredientViewModel.cs" />
     <Compile Include="ViewModels\IceCreamViewModel.cs" />
+    <Compile Include="ViewModels\IcemanViewModel.cs" />
     <Compile Include="ViewModels\IngredientViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\StorageIngredientViewModel.cs" />

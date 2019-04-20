@@ -15,6 +15,9 @@ namespace IceCreamShopServiceDAL.BindingModels
         public int IceCreamId { get; set; }
 
         [DataMember]
+        public int? IcemanId { get; set; }
+
+        [DataMember]
         public int Count { get; set; }
 
         [DataMember]

@@ -1,6 +1,9 @@
-﻿using IceCreamShopServiceDAL.BindingModels;
+﻿using IceCreamShopRestApi.Services;
+using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
+using IceCreamShopServiceDAL.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace IceCreamShopRestApi.Controllers
@@ -9,9 +12,12 @@ namespace IceCreamShopRestApi.Controllers
     {
         private readonly IMainService _service;
 
-        public MainController(IMainService service)
+        private readonly IIcemanService _serviceIceman;
+
+        public MainController(IMainService service, IIcemanService serviceIceman)
         {
             _service = service;
+            _serviceIceman = serviceIceman;
         }
 
         [HttpGet]
@@ -32,18 +38,6 @@ namespace IceCreamShopRestApi.Controllers
         }
 
         [HttpPost]
-        public void TakeBookingInWork(BookingBindingModel model)
-        {
-            _service.TakeBookingInWork(model);
-        }
-
-        [HttpPost]
-        public void FinishBooking(BookingBindingModel model)
-        {
-            _service.FinishBooking(model);
-        }
-
-        [HttpPost]
         public void PayBooking(BookingBindingModel model)
         {
             _service.PayBooking(model);
@@ -53,6 +47,21 @@ namespace IceCreamShopRestApi.Controllers
         public void PutIngredientOnStorage(StorageIngredientBindingModel model)
         {
             _service.PutIngredientOnStorage(model);
+        }
+
+        [HttpPost]
+        public void StartWork()
+        {
+            List<BookingViewModel> bookings = _service.GetFreeBookings();
+            foreach (var booking in bookings)
+            {
+                IcemanViewModel impl = _serviceIceman.GetFreeIceman();
+                if (impl == null)
+                {
+                    throw new Exception("Нет сотрудников");
+                }
+                new WorkIceman(_service, _serviceIceman, impl.Id, booking.Id);
+            }
         }
     }
 }

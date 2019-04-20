@@ -13,6 +13,8 @@ namespace IceCreamShopModel
 
         public int IceCreamId { get; set; }
 
+        public int? IcemanId { get; set; }
+
         public int Count { get; set; }
 
         public decimal Sum { get; set; }
@@ -26,5 +28,7 @@ namespace IceCreamShopModel
         public virtual Customer Customer { get; set; }
 
         public virtual IceCream IceCream { get; set; }
+
+        public virtual Iceman Iceman { get; set; }
     }
 }

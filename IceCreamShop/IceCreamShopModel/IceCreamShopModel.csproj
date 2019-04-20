@@ -51,6 +51,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="IceCream.cs" />
     <Compile Include="IceCreamIngredient.cs" />
+    <Compile Include="Iceman.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="Booking.cs" />
     <Compile Include="BookingStatus.cs" />

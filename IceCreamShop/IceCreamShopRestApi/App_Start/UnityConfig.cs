@@ -60,6 +60,8 @@ namespace IceCreamShopRestApi
             HierarchicalLifetimeManager());
             container.RegisterType<IRecordService, RecordServiceDB>(new
             HierarchicalLifetimeManager());
+            container.RegisterType<IIcemanService, IcemanServiceDB>(new
+            HierarchicalLifetimeManager());
         }
     }
 }

@@ -131,6 +131,18 @@
     <Compile Include="FormIceCreams.Designer.cs">
       <DependentUpon>FormIceCreams.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormIceman.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIceman.Designer.cs">
+      <DependentUpon>FormIceman.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormIcemans.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormIcemans.Designer.cs">
+      <DependentUpon>FormIcemans.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormIngredient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +208,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormIceCreams.resx">
       <DependentUpon>FormIceCreams.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIceman.resx">
+      <DependentUpon>FormIceman.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIcemans.resx">
+      <DependentUpon>FormIcemans.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormIngredient.resx">
       <DependentUpon>FormIngredient.cs</DependentUpon>

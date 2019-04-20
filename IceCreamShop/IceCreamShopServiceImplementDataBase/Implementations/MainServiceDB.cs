@@ -29,11 +29,11 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                             SqlFunctions.DateName("yyyy", rec.DateCreate),
                 DateImplement = rec.DateImplement == null ? "" :
                             SqlFunctions.DateName("dd",
-            rec.DateImplement.Value) + " " +
+                            rec.DateImplement.Value) + " " +
                             SqlFunctions.DateName("mm",
-            rec.DateImplement.Value) + " " +
+                            rec.DateImplement.Value) + " " +
                             SqlFunctions.DateName("yyyy",
-            rec.DateImplement.Value),
+                            rec.DateImplement.Value),
                 Status = rec.Status.ToString(),
                 Count = rec.Count,
                 Sum = rec.Sum,
@@ -160,6 +160,18 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                 });
             }
             context.SaveChanges();
+        }
+
+        public List<BookingViewModel> GetFreeBookings()
+        {
+            List<BookingViewModel> result = context.Bookings
+                .Where(x => x.Status == BookingStatus.Принят || x.Status == BookingStatus.НедостаточноРесурсов)
+                .Select(rec => new BookingViewModel
+                {
+                    Id = rec.Id
+                })
+                .ToList();
+            return result;
         }
     }
 }

@@ -149,5 +149,10 @@ namespace IceCreamShopServiceImplement.Implementations
                 });
             }
         }
+
+        public List<BookingViewModel> GetFreeBookings()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
