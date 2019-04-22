@@ -20,8 +20,7 @@ namespace IceCreamShopRestApi.Services
 
         Thread myThread;
 
-        public WorkIceman(IMainService service, IIcemanService
-        serviceIceman, int implementerId, int orderId)
+        public WorkIceman(IMainService service, IIcemanService serviceIceman, int implementerId, int orderId)
         {
             _service = service;
             _serviceIceman = serviceIceman;
@@ -49,7 +48,7 @@ namespace IceCreamShopRestApi.Services
                 // забиваем мастерскую
                 _sem.WaitOne();
                 // Типа выполняем
-                Thread.Sleep(10);
+                Thread.Sleep(1000);
                 _service.FinishBooking(new BookingBindingModel
                 {
                     Id = _orderId
