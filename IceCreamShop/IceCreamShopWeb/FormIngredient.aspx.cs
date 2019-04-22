@@ -15,8 +15,6 @@ namespace IceCreamShopWeb
 
         private int id;
 
-        private string name;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Int32.TryParse((string)Session["id"], out id))
