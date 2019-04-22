@@ -26,21 +26,6 @@ namespace IceCreamShopWeb
                     IngredientViewModel view = service.GetElement(id);
                     if (view != null)
                     {
-                        //name = view.IngredientName;
-                        //service.UpdElement(new IngredientBindingModel
-                        //{
-                        //    Id = id,
-                        //    IngredientName = ""
-                        //});
-                        //if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(textBoxName.Text))
-                        //{
-                        //    textBoxName.Text = name;
-                        //}
-                        //service.UpdElement(new IngredientBindingModel
-                        //{
-                        //    Id = id,
-                        //    IngredientName = name
-                        //});
                         if (!Page.IsPostBack)
                         {
                             textBoxName.Text = view.IngredientName;
