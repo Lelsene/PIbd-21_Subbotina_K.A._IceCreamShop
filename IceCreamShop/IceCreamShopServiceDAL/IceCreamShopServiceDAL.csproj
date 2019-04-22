@@ -46,16 +46,21 @@
     <Compile Include="BindingModels\IceCreamIngredientBindingModel.cs" />
     <Compile Include="BindingModels\IngredientBindingModel.cs" />
     <Compile Include="BindingModels\BookingBindingModel.cs" />
+    <Compile Include="BindingModels\StorageIngredientBindingModel.cs" />
+    <Compile Include="BindingModels\StorageBindingModel.cs" />
     <Compile Include="Interfaces\ICustomerService.cs" />
     <Compile Include="Interfaces\IIceCreamService.cs" />
     <Compile Include="Interfaces\IIngredientService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
+    <Compile Include="Interfaces\IStorageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\IceCreamIngredientViewModel.cs" />
     <Compile Include="ViewModels\IceCreamViewModel.cs" />
     <Compile Include="ViewModels\IngredientViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
+    <Compile Include="ViewModels\StorageIngredientViewModel.cs" />
+    <Compile Include="ViewModels\StorageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IceCreamShopModel\IceCreamShopModel.csproj">

@@ -62,6 +62,18 @@ namespace IceCreamShopView
             form.ShowDialog();
         }
 
+        private void пополнитьХранилищеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormPutOnStorage>();
+            form.ShowDialog();
+        }
+
+        private void хранилищаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormStorages>();
+            form.ShowDialog();
+        }
+
         private void buttonCreateBooking_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormCreateBooking>();
