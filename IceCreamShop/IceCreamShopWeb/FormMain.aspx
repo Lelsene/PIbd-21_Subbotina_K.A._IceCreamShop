@@ -22,7 +22,9 @@
                     <asp:MenuItem Text="Покупатели" Value="Покупатели" NavigateUrl="~/FormCustomers.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="Ингредиенты" Value="Ингредиенты" NavigateUrl="~/FormIngredients.aspx"></asp:MenuItem>
                     <asp:MenuItem Text="Мороженое" Value="Мороженое" NavigateUrl="~/FormIceCreams.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Хранилища" Value="Хранилища" NavigateUrl="~/FormStorages.aspx"></asp:MenuItem>
                 </asp:MenuItem>
+                <asp:MenuItem Text="Пополнить хранилище" Value="Пополнить хранилище" NavigateUrl="~/FormPutOnStorage.aspx"></asp:MenuItem>
             </Items>
         </asp:Menu>
         <asp:Button ID="ButtonCreateBooking" runat="server" Text="Создать заказ" OnClick="ButtonCreateBooking_Click" />
