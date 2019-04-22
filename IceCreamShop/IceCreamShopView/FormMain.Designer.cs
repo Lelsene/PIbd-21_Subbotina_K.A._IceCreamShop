@@ -225,7 +225,6 @@
         private System.Windows.Forms.Button buttonCreateBooking;
         private System.Windows.Forms.Button buttonPayBooking;
         private System.Windows.Forms.Button buttonRef;
-        private System.ComponentModel.IContainer components;
         private System.Windows.Forms.ToolStripMenuItem хранилищаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem пополнитьХранилищеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчётыToolStripMenuItem;

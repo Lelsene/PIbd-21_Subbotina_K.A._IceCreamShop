@@ -48,7 +48,7 @@ namespace IceCreamShopRestApi.Services
                 // забиваем мастерскую
                 _sem.WaitOne();
                 // Типа выполняем
-                Thread.Sleep(1000);
+                Thread.Sleep(10000);
                 _service.FinishBooking(new BookingBindingModel
                 {
                     Id = _orderId

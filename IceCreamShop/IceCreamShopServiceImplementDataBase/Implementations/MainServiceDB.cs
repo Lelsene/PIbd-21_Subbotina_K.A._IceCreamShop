@@ -13,10 +13,12 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
     public class MainServiceDB : IMainService
     {
         private IceCreamDbContext context;
+
         public MainServiceDB(IceCreamDbContext context)
         {
             this.context = context;
         }
+
         public List<BookingViewModel> GetList()
         {
             List<BookingViewModel> result = context.Bookings.Select(rec => new BookingViewModel
@@ -38,11 +40,14 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                 Count = rec.Count,
                 Sum = rec.Sum,
                 CustomerFIO = rec.Customer.CustomerFIO,
-                IceCreamName = rec.IceCream.IceCreamName
+                IceCreamName = rec.IceCream.IceCreamName,
+                IcemanId = rec.IcemanId,
+                IcemanFIO = rec.Iceman.IcemanFIO
             })
             .ToList();
             return result;
         }
+
         public void CreateBooking(BookingBindingModel model)
         {
             context.Bookings.Add(new Booking
@@ -56,6 +61,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
             });
             context.SaveChanges();
         }
+
         public void TakeBookingInWork(BookingBindingModel model)
         {
             using (var transaction = context.Database.BeginTransaction())
@@ -68,9 +74,9 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                     {
                         throw new Exception("Элемент не найден");
                     }
-                    if (element.Status != BookingStatus.Принят)
+                    if ((element.Status != BookingStatus.Принят) && (element.Status != BookingStatus.НедостаточноРесурсов))
                     {
-                        throw new Exception("Заказ не в статусе \"Принят\"");
+                        throw new Exception("Заказ не в статусе \"Принят\" или \"Недостаточно ресурсов\"");
                     }
                     var icecreamIngredients = context.IceCreamIngredients.Include(rec =>
                     rec.Ingredient).Where(rec => rec.IceCreamId == element.IceCreamId);
@@ -102,6 +108,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                             throw new Exception("Не достаточно ингредиента" + icecreamIngredient.Ingredient.IngredientName + " требуется " + icecreamIngredient.Count + ", не хватает " + countOnStorages);
                         }
                     }
+                    element.IcemanId = model.IcemanId;
                     element.DateImplement = DateTime.Now;
                     element.Status = BookingStatus.Готовится;
                     context.SaveChanges();
@@ -110,10 +117,14 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                 catch (Exception)
                 {
                     transaction.Rollback();
+                    Booking element = context.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
+                    element.Status = BookingStatus.НедостаточноРесурсов;
+                    context.SaveChanges();
                     throw;
                 }
             }
         }
+
         public void FinishBooking(BookingBindingModel model)
         {
             Booking element = context.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
@@ -128,6 +139,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
             element.Status = BookingStatus.Готов;
             context.SaveChanges();
         }
+
         public void PayBooking(BookingBindingModel model)
         {
             Booking element = context.Bookings.FirstOrDefault(rec => rec.Id == model.Id);
@@ -142,6 +154,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
             element.Status = BookingStatus.Оплачен;
             context.SaveChanges();
         }
+
         public void PutIngredientOnStorage(StorageIngredientBindingModel model)
         {
             StorageIngredient element = context.StorageIngredients.FirstOrDefault(rec =>
