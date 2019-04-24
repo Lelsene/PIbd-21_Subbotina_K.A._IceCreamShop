@@ -13,7 +13,7 @@ namespace IceCreamShopServiceImplementDataBase.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201903151317270_FirstMigration"; }
+            get { return "201904232122246_FirstMigration"; }
         }
         
         string IMigrationMetadata.Source

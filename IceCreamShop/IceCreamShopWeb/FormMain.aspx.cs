@@ -1,21 +1,23 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplement.Implementations;
+using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormMain : System.Web.UI.Page
     {
-        private readonly IMainService service = new MainServiceList();
+        private IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
 
         List<BookingViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            service = UnityConfig.Container.Resolve<MainServiceDB>();
             LoadData();
         }
 

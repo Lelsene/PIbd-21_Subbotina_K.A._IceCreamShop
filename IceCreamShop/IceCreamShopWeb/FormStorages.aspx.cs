@@ -1,20 +1,22 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplement.Implementations;
+using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormStorages : System.Web.UI.Page
     {
-        private readonly IStorageService service = new StorageServiceList();
+        private IStorageService service = UnityConfig.Container.Resolve<StorageServiceDB>();
 
         List<StorageViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            service = UnityConfig.Container.Resolve<StorageServiceDB>();
             LoadData();
         }
 

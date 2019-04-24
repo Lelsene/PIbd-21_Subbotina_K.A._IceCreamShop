@@ -1,9 +1,10 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplement.Implementations;
+using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Web.UI;
+using Unity;
 
 namespace IceCreamShopWeb
 {
@@ -11,7 +12,7 @@ namespace IceCreamShopWeb
     {
         public int Id { set { id = value; } }
 
-        private readonly IIngredientService service = new IngredientServiceList();
+        private readonly IIngredientService service = UnityConfig.Container.Resolve<IngredientServiceDB>();
 
         private int id;
 

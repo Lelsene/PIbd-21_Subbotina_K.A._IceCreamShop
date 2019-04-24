@@ -1,20 +1,23 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using IceCreamShopServiceImplement.Implementations;
+using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormIceCreams : System.Web.UI.Page
     {
-        private readonly IIceCreamService service = new IceCreamServiceList();
+        private IIceCreamService service = UnityConfig.Container.Resolve<IceCreamServiceDB>();
 
         List<IceCreamViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            service = UnityConfig.Container.Resolve<IceCreamServiceDB>();
             LoadData();
         }
 

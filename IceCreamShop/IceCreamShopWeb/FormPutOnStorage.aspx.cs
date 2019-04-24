@@ -1,20 +1,21 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplement.Implementations;
+using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormPutOnStorage : System.Web.UI.Page
     {
-        private readonly IStorageService serviceS = new StorageServiceList();
+        private readonly IStorageService serviceS = UnityConfig.Container.Resolve<StorageServiceDB>();
 
-        private readonly IIngredientService serviceI = new IngredientServiceList();
+        private readonly IIngredientService serviceI = UnityConfig.Container.Resolve<IngredientServiceDB>();
 
-        private readonly IMainService serviceM = new MainServiceList();
+        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
 
         protected void Page_Load(object sender, EventArgs e)
         {

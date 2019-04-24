@@ -1,15 +1,16 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplement.Implementations;
+using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormIceCreamIngredient : System.Web.UI.Page
     {
-        private readonly IIngredientService service = new IngredientServiceList();
+        private readonly IIngredientService service = UnityConfig.Container.Resolve<IngredientServiceDB>();
 
         private IceCreamIngredientViewModel model;
 
