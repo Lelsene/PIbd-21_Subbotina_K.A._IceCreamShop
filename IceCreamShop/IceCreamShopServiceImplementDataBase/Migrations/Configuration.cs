@@ -5,14 +5,14 @@ namespace IceCreamShopServiceImplementDataBase.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<IceCreamShopServiceImplementDataBase.IceCreamDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<IceCreamShopServiceImplementDataBase.IceCreamWebDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(IceCreamShopServiceImplementDataBase.IceCreamDbContext context)
+        protected override void Seed(IceCreamShopServiceImplementDataBase.IceCreamWebDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

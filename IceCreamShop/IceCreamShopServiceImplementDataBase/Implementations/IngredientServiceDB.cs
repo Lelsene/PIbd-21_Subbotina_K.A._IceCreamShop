@@ -10,8 +10,8 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
 {
     public class IngredientServiceDB : IIngredientService
     {
-        private IceCreamDbContext context;
-        public IngredientServiceDB(IceCreamDbContext context)
+        private IceCreamWebDbContext context;
+        public IngredientServiceDB(IceCreamWebDbContext context)
         {
             this.context = context;
         }

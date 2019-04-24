@@ -1,11 +1,13 @@
 ﻿using IceCreamShopModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace IceCreamShopServiceImplementDataBase
 {
-    public class IceCreamDbContext : DbContext
+    [Table("IceCreamWebDatabase")]
+    public class IceCreamWebDbContext : DbContext
     {
-        public IceCreamDbContext() : base("IceCreamDatabase")
+        public IceCreamWebDbContext() : base("IceCreamWebDatabase")
         {
             //настройки конфигурации для entity
             Configuration.ProxyCreationEnabled = false;

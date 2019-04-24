@@ -25,7 +25,7 @@ namespace IceCreamShopView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<DbContext, IceCreamDbContext>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<DbContext, IceCreamWebDbContext>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ICustomerService, CustomerServiceDB>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IIngredientService, IngredientServiceDB>(new

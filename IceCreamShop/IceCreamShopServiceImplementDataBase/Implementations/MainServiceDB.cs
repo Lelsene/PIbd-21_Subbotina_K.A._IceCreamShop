@@ -12,8 +12,8 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
 {
     public class MainServiceDB : IMainService
     {
-        private IceCreamDbContext context;
-        public MainServiceDB(IceCreamDbContext context)
+        private IceCreamWebDbContext context;
+        public MainServiceDB(IceCreamWebDbContext context)
         {
             this.context = context;
         }

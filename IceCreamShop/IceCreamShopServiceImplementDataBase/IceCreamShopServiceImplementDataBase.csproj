@@ -48,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IceCreamDbContext.cs" />
+    <Compile Include="IceCreamWebDbContext.cs" />
     <Compile Include="Implementations\CustomerServiceDB.cs" />
     <Compile Include="Implementations\IceCreamServiceDB.cs" />
     <Compile Include="Implementations\IngredientServiceDB.cs" />
