@@ -29,5 +29,7 @@ namespace IceCreamShopServiceImplementDataBase
         public virtual DbSet<Storage> Storages { get; set; }
 
         public virtual DbSet<StorageIngredient> StorageIngredients { get; set; }
+
+        public virtual DbSet<MessageInfo> MessageInfos { get; set; }
     }
 }
