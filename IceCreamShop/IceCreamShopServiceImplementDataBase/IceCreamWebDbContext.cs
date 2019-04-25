@@ -7,7 +7,7 @@ namespace IceCreamShopServiceImplementDataBase
     [Table("IceCreamWebDatabase")]
     public class IceCreamWebDbContext : DbContext
     {
-        public IceCreamWebDbContext() : base("IceCreamWebDatabase")
+        public IceCreamWebDbContext() : base("IceCreamWebDbContext")
         {
             //настройки конфигурации для entity
             Configuration.ProxyCreationEnabled = false;
