@@ -11,10 +11,17 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
     public class StorageServiceDB : IStorageService
     {
         private IceCreamWebDbContext context;
+
         public StorageServiceDB(IceCreamWebDbContext context)
         {
             this.context = context;
         }
+
+        public StorageServiceDB()
+        {
+            this.context = new IceCreamWebDbContext();
+        }
+
         public List<StorageViewModel> GetList()
         {
             List<StorageViewModel> result = context.Storages.Select(rec => new

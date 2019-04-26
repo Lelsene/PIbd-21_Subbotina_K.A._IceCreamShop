@@ -16,6 +16,12 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
         {
             this.context = context;
         }
+
+        public CustomerServiceDB()
+        {
+            this.context = new IceCreamWebDbContext();
+        }
+
         public List<CustomerViewModel> GetList()
         {
             List<CustomerViewModel> result = context.Customers.Select(rec => new

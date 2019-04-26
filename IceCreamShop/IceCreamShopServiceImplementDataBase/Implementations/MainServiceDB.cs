@@ -17,6 +17,12 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
         {
             this.context = context;
         }
+
+        public MainServiceDB()
+        {
+            this.context = new IceCreamWebDbContext();
+        }
+
         public List<BookingViewModel> GetList()
         {
             List<BookingViewModel> result = context.Bookings.Select(rec => new BookingViewModel

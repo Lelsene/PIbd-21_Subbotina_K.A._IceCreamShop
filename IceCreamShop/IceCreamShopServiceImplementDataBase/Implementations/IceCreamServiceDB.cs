@@ -11,10 +11,17 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
     public class IceCreamServiceDB : IIceCreamService
     {
         private IceCreamWebDbContext context;
+
         public IceCreamServiceDB(IceCreamWebDbContext context)
         {
             this.context = context;
         }
+
+        public IceCreamServiceDB()
+        {
+            this.context = new IceCreamWebDbContext();
+        }
+
         public List<IceCreamViewModel> GetList()
         {
             List<IceCreamViewModel> result = context.IceCreams.Select(rec => new
