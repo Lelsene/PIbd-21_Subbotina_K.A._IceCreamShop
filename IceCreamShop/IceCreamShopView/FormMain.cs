@@ -158,5 +158,11 @@ namespace IceCreamShopView
             var form = new FormIcemans();
             form.ShowDialog();
         }
+
+        private void письмаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormMails();
+            form.ShowDialog();
+        }
     }
 }

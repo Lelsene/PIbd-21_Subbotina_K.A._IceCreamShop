@@ -65,7 +65,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
             context.Bookings.Add(booking);
             context.SaveChanges();
             var customer = context.Customers.FirstOrDefault(x => x.Id == model.CustomerId);
-            SendEmail(customer.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от { 1} cоздан успешно", booking.Id, booking.DateCreate.ToShortDateString()));
+            SendEmail(customer.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} cоздан успешно", booking.Id, booking.DateCreate.ToShortDateString()));
         }
 
         public void TakeBookingInWork(BookingBindingModel model)
