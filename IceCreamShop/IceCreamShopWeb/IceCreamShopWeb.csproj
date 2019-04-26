@@ -90,12 +90,6 @@
     <Reference Include="Unity.Container, Version=5.10.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.10.3\lib\net46\Unity.Container.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.WebForms, Version=1.4.5797.27456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.WebForms.1.4.0.0\lib\net40\Unity.WebForms.dll</HintPath>
-    </Reference>
-    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -120,7 +114,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\UnityWebFormsStart.cs" />
     <Compile Include="FormCreateBooking.aspx.cs">
       <DependentUpon>FormCreateBooking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -229,10 +222,6 @@
     <ProjectReference Include="..\IceCreamShopServiceImplementDataBase\IceCreamShopServiceImplementDataBase.csproj">
       <Project>{9f385e32-a58d-45ba-98c0-deecfc93a6c2}</Project>
       <Name>IceCreamShopServiceImplementDataBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IceCreamShopServiceImplement\IceCreamShopServiceImplement.csproj">
-      <Project>{8843b9ee-545c-41a9-bb44-8ad64bb1301a}</Project>
-      <Name>IceCreamShopServiceImplement</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
