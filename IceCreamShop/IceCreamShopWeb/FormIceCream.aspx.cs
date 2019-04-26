@@ -24,6 +24,7 @@ namespace IceCreamShopWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (Int32.TryParse((string)Session["id"], out id))
             {
                 try
@@ -38,8 +39,8 @@ namespace IceCreamShopWeb
                         }
                         this.icecreamIngredients = view.IceCreamIngredients;
                         LoadData();
-                    }
 
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -102,8 +103,8 @@ namespace IceCreamShopWeb
                     service.UpdElement(new IceCreamBindingModel
                     {
                         Id = id,
-                        IceCreamName = textBoxName.Text,
-                        Price = Convert.ToInt32(textBoxPrice.Text),
+                        IceCreamName = "Введите название",
+                        Price = 0,
                         IceCreamIngredients = icecreamIngredientBM
                     });
                 }
@@ -111,7 +112,7 @@ namespace IceCreamShopWeb
                 {
                     service.AddElement(new IceCreamBindingModel
                     {
-                        IceCreamName = "-0",
+                        IceCreamName = "Введите название",
                         Price = 0,
                         IceCreamIngredients = icecreamIngredientBM
                     });

@@ -11,11 +11,11 @@
     <form id="form1" runat="server">
         <div>
             Название&nbsp;&nbsp;
-        <asp:TextBox ID="textBoxName" runat="server" Width="200px"></asp:TextBox>
+        <asp:TextBox ID="textBoxName" runat="server" Width="200px"> </asp:TextBox>
             <br />
             <br />
             Цена&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-        <asp:TextBox ID="textBoxPrice" runat="server" Width="200px">0</asp:TextBox>
+        <asp:TextBox ID="textBoxPrice" runat="server" Width="200px"></asp:TextBox>
             <br />
             <br />
             <asp:Button ID="ButtonAdd" runat="server" Text="Добавить" OnClick="ButtonAdd_Click" />

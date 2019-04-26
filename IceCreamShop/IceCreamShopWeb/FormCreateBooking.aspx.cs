@@ -98,7 +98,7 @@ namespace IceCreamShopWeb
                     CustomerId = Convert.ToInt32(DropDownListCustomer.SelectedValue),
                     IceCreamId = Convert.ToInt32(DropDownListIceCream.SelectedValue),
                     Count = Convert.ToInt32(TextBoxCount.Text),
-                    Sum = Convert.ToInt32(TextBoxSum.Text)
+                    Sum = Convert.ToDecimal(TextBoxSum.Text)
                 });
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
                 Server.Transfer("FormMain.aspx");
