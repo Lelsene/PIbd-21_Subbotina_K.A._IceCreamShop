@@ -1,6 +1,5 @@
 ﻿using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplement.Implementations;
 using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
