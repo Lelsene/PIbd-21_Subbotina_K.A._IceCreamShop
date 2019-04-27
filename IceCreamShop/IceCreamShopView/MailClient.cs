@@ -126,7 +126,7 @@ namespace IceCreamShopView
                 {
                     if (response.StartsWith("From:"))
                     {
-                        from = response.Substring(6);
+                        from = response.Substring(31);
                     }
                     if (response.StartsWith("Date:"))
                     {
@@ -139,7 +139,7 @@ namespace IceCreamShopView
                     if (response.StartsWith("Subject:"))
                     {
                         orderSubjectMessage = GetSubject(ref response, ref coding);
-                        orderBodyMessage = GetBody(response, coding);
+                        //orderBodyMessage = GetBody(response, coding);
                     }
                     if (!string.IsNullOrEmpty(messageId) && !string.IsNullOrEmpty(from)
                         && !string.IsNullOrEmpty(orderSubjectMessage) && !string.IsNullOrEmpty(date))
@@ -160,6 +160,8 @@ namespace IceCreamShopView
                         orderSubjectMessage = string.Empty;
                         orderBodyMessage = string.Empty;
                     }
+                    from = from.TrimEnd('>');
+                    from = from.TrimStart('<');
                 }
             }
         }
@@ -174,13 +176,12 @@ namespace IceCreamShopView
         {
             StringBuilder subject = new StringBuilder(response);
 
-            while (!response.StartsWith("To:"))
+            while (!response.StartsWith("MIME-Version:"))
             {
                 response = reader.ReadLine();
                 subject.Append(response);
             }
-            MatchCollection rr = Regex.Matches(subject.ToString(),
-                @"(?:=\?)([^\?]+)(?:\?B\?)([^\?]*)(?:\?=)");
+            MatchCollection rr = Regex.Matches(subject.ToString(), @"(?:=\?)([^\?]+)(?:\?B\?)([^\?]*)(?:\?=)");
 
             if (rr.Count > 0)
             {

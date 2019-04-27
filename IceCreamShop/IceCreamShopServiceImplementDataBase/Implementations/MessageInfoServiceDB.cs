@@ -68,9 +68,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                 Subject = model.Subject,
                 Body = model.Body
             };
-            var mailAddress = Regex.Match(model.FromMailAddress,
-            @"(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-
-            z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))");
+            var mailAddress = Regex.Match(model.FromMailAddress, @"(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))");
             if (mailAddress.Success)
             {
                 var client = context.Customers.FirstOrDefault(rec => rec.Mail ==
