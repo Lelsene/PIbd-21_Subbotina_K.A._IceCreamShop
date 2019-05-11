@@ -15,10 +15,13 @@ namespace IceCreamShopView
 
         private readonly IMainService service;
 
-        public FormMain(IMainService service)
+        private IRecordService recordService;
+
+        public FormMain(IMainService service, IRecordService recordService)
         {
             InitializeComponent();
             this.service = service;
+            this.recordService = recordService;
         }
 
         private void LoadData()
@@ -73,6 +76,44 @@ namespace IceCreamShopView
             var form = Container.Resolve<FormStorages>();
             form.ShowDialog();
         }
+
+        private void прайсМороженогоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "doc|*.doc|docx|*.docx"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    recordService.SaveIceCreamPrice(new RecordBindingModel
+                    {
+                        FileName = sfd.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void загруженностьХранилищToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormStoragesLoad>();
+            form.ShowDialog();
+        }
+
+        private void заказыПокупателейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormCustomerBookings>();
+            form.ShowDialog();
+        }
+
 
         private void buttonCreateBooking_Click(object sender, EventArgs e)
         {
