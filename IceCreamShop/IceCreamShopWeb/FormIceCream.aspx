@@ -22,7 +22,7 @@
             <asp:Button ID="ButtonChange" runat="server" Text="Изменить" OnClick="ButtonChange_Click" />
             <asp:Button ID="ButtonDelete" runat="server" Text="Удалить" OnClick="ButtonDelete_Click" />
             <asp:Button ID="ButtonUpd" runat="server" Text="Обновить" OnClick="ButtonUpd_Click" />
-            <asp:GridView ID="dataGridView" runat="server" OnRowDataBound="dataGridView_RowDataBound">
+            <asp:GridView ID="dataGridView" runat="server" OnRowDataBound="DataGridView_RowDataBound">
                 <Columns>
                     <asp:CommandField ShowSelectButton="true" SelectText=">>" />
                 </Columns>

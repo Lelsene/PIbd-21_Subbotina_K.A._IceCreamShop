@@ -16,9 +16,9 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
 {
     public class RecordServiceDB : IRecordService
     {
-        private IceCreamDbContext context;
+        private IceCreamWebDbContext context;
 
-        public RecordServiceDB(IceCreamDbContext context)
+        public RecordServiceDB(IceCreamWebDbContext context)
         {
             this.context = context;
         }

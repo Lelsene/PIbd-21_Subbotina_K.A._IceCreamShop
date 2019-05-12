@@ -52,6 +52,7 @@ namespace IceCreamShopWeb
             container.RegisterType<IIceCreamService, IceCreamServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IStorageService, StorageServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRecordService, RecordServiceDB>(new HierarchicalLifetimeManager());
         }
     }
 }

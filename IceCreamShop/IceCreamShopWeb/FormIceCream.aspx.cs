@@ -264,7 +264,7 @@ namespace IceCreamShopWeb
             Server.Transfer("FormIceCreams.aspx");
         }
 
-        protected void dataGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void DataGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[1].Visible = false;
             e.Row.Cells[2].Visible = false;
