@@ -50,9 +50,27 @@ namespace IceCreamShopWeb
 
         protected void ButtonToPdf_Click(object sender, EventArgs e)
         {
-            Session["DateFrom"] = Calendar1.SelectedDate.ToString();
-            Session["DateTo"] = Calendar2.SelectedDate.ToString();
-            Server.Transfer("FormCustomerBookingsSave.aspx");
+            string path = "C:\\Users\\Шонова\\Desktop\\CustomerBookings.pdf";
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("Content-Disposition", "filename=CustomerBookings.pdf");
+            Response.ContentType = "application/vnd.ms-word";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            try
+            {
+                service.SaveCustomerBookings(new RecordBindingModel
+                {
+                    FileName = path,
+                    DateFrom = Calendar1.SelectedDate,
+                    DateTo = Calendar2.SelectedDate
+                });
+                Response.WriteFile(path);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "ScriptAllert", "<script>alert('" + ex.Message + "');</script>");
+            }
+            Response.End();
         }
 
         protected void ButtonBack_Click(object sender, EventArgs e)

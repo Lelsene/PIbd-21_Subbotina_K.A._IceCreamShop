@@ -124,7 +124,6 @@
     <Content Include="FormCreateBooking.aspx" />
     <Content Include="FormCustomer.aspx" />
     <Content Include="FormCustomerBookings.aspx" />
-    <Content Include="FormCustomerBookingsSave.aspx" />
     <Content Include="FormCustomers.aspx" />
     <Content Include="FormIceCream.aspx" />
     <Content Include="FormIceCreamIngredient.aspx" />
@@ -137,7 +136,6 @@
     <Content Include="FormStorage.aspx" />
     <Content Include="FormStorages.aspx" />
     <Content Include="FormStoragesLoad.aspx" />
-    <Content Include="FormStoragesLoadSave.aspx" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -176,13 +174,6 @@
     </Compile>
     <Compile Include="FormCustomerBookings.aspx.designer.cs">
       <DependentUpon>FormCustomerBookings.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FormCustomerBookingsSave.aspx.cs">
-      <DependentUpon>FormCustomerBookingsSave.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FormCustomerBookingsSave.aspx.designer.cs">
-      <DependentUpon>FormCustomerBookingsSave.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormCustomers.aspx.cs">
       <DependentUpon>FormCustomers.aspx</DependentUpon>
@@ -267,13 +258,6 @@
     </Compile>
     <Compile Include="FormStoragesLoad.aspx.designer.cs">
       <DependentUpon>FormStoragesLoad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FormStoragesLoadSave.aspx.cs">
-      <DependentUpon>FormStoragesLoadSave.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FormStoragesLoadSave.aspx.designer.cs">
-      <DependentUpon>FormStoragesLoadSave.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />

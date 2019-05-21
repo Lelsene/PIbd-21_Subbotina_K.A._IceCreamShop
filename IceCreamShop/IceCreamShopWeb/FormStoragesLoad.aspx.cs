@@ -1,4 +1,5 @@
-﻿using IceCreamShopServiceDAL.Interfaces;
+﻿using IceCreamShopServiceDAL.BindingModels;
+using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceImplementDataBase.Implementations;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,26 @@ namespace IceCreamShopWeb
 
         protected void ButtonSaveExcel_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormStoragesLoadSave.aspx");
+            string path = "C:\\Users\\Шонова\\Desktop\\test.xls";
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("Content-Disposition", "attachment; filename=test.xls");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Charset = String.Empty;
+            //Response.ContentEncoding = System.Text.Encoding.UTF8;
+            try
+            {
+                service.SaveStoragesLoad(new RecordBindingModel
+                {
+                    FileName = path
+                });
+                Response.WriteFile(path);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "ScriptAllert", "<script>alert('" + ex.Message + "');</script>");
+            }
+            Response.End();
         }
 
         protected void ButtonBack_Click(object sender, EventArgs e)

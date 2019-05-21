@@ -13,6 +13,7 @@ namespace IceCreamShopWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string path = "C:\\Users\\Шонова\\Desktop\\Price.docx";
             Response.Clear();
             Response.Buffer = true;
             Response.AddHeader("Content-Disposition", "filename=Price.docx");
@@ -21,9 +22,9 @@ namespace IceCreamShopWeb
             {
                 reportService.SaveIceCreamPrice(new RecordBindingModel
                 {
-                    FileName = "D:\\Price.docx"
+                    FileName = path
                 });
-                Response.WriteFile("D:\\Price.docx");
+                Response.WriteFile(path);
             }
             catch (Exception ex)
             {
