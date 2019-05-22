@@ -251,22 +251,43 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
 
         public List<CustomerBookingsModel> GetCustomerBookings(RecordBindingModel model)
         {
-            return context.Bookings
-                            .Include(rec => rec.Customer)
-                            .Include(rec => rec.IceCream)
-                            .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                            .Select(rec => new CustomerBookingsModel
-                            {
-                                CustomerName = rec.Customer.CustomerFIO,
-                                DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
-                                    SqlFunctions.DateName("mm", rec.DateCreate) + " " +
-                                    SqlFunctions.DateName("yyyy", rec.DateCreate),
-                                IceCreamName = rec.IceCream.IceCreamName,
-                                Count = rec.Count,
-                                Sum = rec.Sum,
-                                Status = rec.Status.ToString()
-                            })
-                            .ToList();
+            if (model != null)
+            {
+                return context.Bookings
+                                .Include(rec => rec.Customer)
+                                .Include(rec => rec.IceCream)
+                                .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                                .Select(rec => new CustomerBookingsModel
+                                {
+                                    CustomerName = rec.Customer.CustomerFIO,
+                                    DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
+                                        SqlFunctions.DateName("mm", rec.DateCreate) + " " +
+                                        SqlFunctions.DateName("yyyy", rec.DateCreate),
+                                    IceCreamName = rec.IceCream.IceCreamName,
+                                    Count = rec.Count,
+                                    Sum = rec.Sum,
+                                    Status = rec.Status.ToString()
+                                })
+                                .ToList();
+            }
+            else
+            {
+                return context.Bookings
+                                .Include(rec => rec.Customer)
+                                .Include(rec => rec.IceCream)
+                                .Select(rec => new CustomerBookingsModel
+                                {
+                                    CustomerName = rec.Customer.CustomerFIO,
+                                    DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
+                                        SqlFunctions.DateName("mm", rec.DateCreate) + " " +
+                                        SqlFunctions.DateName("yyyy", rec.DateCreate),
+                                    IceCreamName = rec.IceCream.IceCreamName,
+                                    Count = rec.Count,
+                                    Sum = rec.Sum,
+                                    Status = rec.Status.ToString()
+                                })
+                                .ToList();
+            }
         }
 
         public void SaveCustomerBookings(RecordBindingModel model)

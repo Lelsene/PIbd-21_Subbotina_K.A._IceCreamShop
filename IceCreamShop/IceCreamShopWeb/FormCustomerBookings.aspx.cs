@@ -12,11 +12,6 @@ namespace IceCreamShopWeb
     {
         private readonly IRecordService service = UnityConfig.Container.Resolve<RecordServiceDB>();
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
-
         protected void ButtonMake_Click(object sender, EventArgs e)
         {
             if (Calendar1.SelectedDate >= Calendar2.SelectedDate)
