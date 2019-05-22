@@ -1,27 +1,19 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormStorage : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
-        private readonly IStorageService service;
 
         private int? id;
 
-        public FormStorage(IStorageService service)
+        public FormStorage()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormStorage_Load(object sender, EventArgs e)
@@ -30,7 +22,7 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    StorageViewModel view = service.GetElement(id.Value);
+                    StorageViewModel view = APIClient.GetRequest<StorageViewModel>("api/Storage/Get/" + id.Value);
                     if (view != null)
                     {
                         textBoxName.Text = view.StorageName;
@@ -61,7 +53,8 @@ namespace IceCreamShopView
             {
                 if (id.HasValue)
                 {
-                    service.UpdElement(new StorageBindingModel
+                    APIClient.PostRequest<StorageBindingModel,
+                    bool>("api/Storage/UpdElement", new StorageBindingModel
                     {
                         Id = id.Value,
                         StorageName = textBoxName.Text
@@ -69,7 +62,8 @@ namespace IceCreamShopView
                 }
                 else
                 {
-                    service.AddElement(new StorageBindingModel
+                    APIClient.PostRequest<StorageBindingModel,
+                    bool>("api/Storage/AddElement", new StorageBindingModel
                     {
                         StorageName = textBoxName.Text
                     });

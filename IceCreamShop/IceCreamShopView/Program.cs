@@ -1,11 +1,5 @@
-﻿using IceCreamShopServiceDAL.Interfaces;
-using IceCreamShopServiceImplementDataBase;
-using IceCreamShopServiceImplementDataBase.Implementations;
-using System;
-using System.Data.Entity;
+﻿using System;
 using System.Windows.Forms;
-using Unity;
-using Unity.Lifetime;
 
 namespace IceCreamShopView
 {
@@ -17,7 +11,7 @@ namespace IceCreamShopView
         [STAThread]
         static void Main()
         {
-            var container = BuildUnityContainer();
+            APIClient.Connect();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(container.Resolve<FormMain>());
@@ -25,7 +19,7 @@ namespace IceCreamShopView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<DbContext, IceCreamWebDbContext>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<DbContext, IceCreamDbContext>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ICustomerService, CustomerServiceDB>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IIngredientService, IngredientServiceDB>(new

@@ -1,30 +1,22 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormIceCream : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
-        private readonly IIceCreamService service;
 
         private int? id;
 
         private List<IceCreamIngredientViewModel> IceCreamIngredients;
 
-        public FormIceCream(IIceCreamService service)
+        public FormIceCream()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void FormIceCream_Load(object sender, EventArgs e)
@@ -33,7 +25,7 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    IceCreamViewModel view = service.GetElement(id.Value);
+                    IceCreamViewModel view = APIClient.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id.Value);
                     if (view != null)
                     {
                         textBoxName.Text = view.IceCreamName;
@@ -78,7 +70,7 @@ namespace IceCreamShopView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormIceCreamIngredient>();
+            var form = new FormIceCreamIngredient();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.Model != null)
@@ -97,7 +89,7 @@ namespace IceCreamShopView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormIceCreamIngredient>();
+                var form = new FormIceCreamIngredient();
                 form.Model =
                 IceCreamIngredients[dataGridView.SelectedRows[0].Cells[0].RowIndex];
                 if (form.ShowDialog() == DialogResult.OK)
@@ -171,7 +163,8 @@ namespace IceCreamShopView
                 }
                 if (id.HasValue)
                 {
-                    service.UpdElement(new IceCreamBindingModel
+                    APIClient.PostRequest<IceCreamBindingModel,
+                    bool>("api/IceCream/UpdElement", new IceCreamBindingModel
                     {
                         Id = id.Value,
                         IceCreamName = textBoxName.Text,
@@ -181,7 +174,8 @@ namespace IceCreamShopView
                 }
                 else
                 {
-                    service.AddElement(new IceCreamBindingModel
+                    APIClient.PostRequest<IceCreamBindingModel,
+                    bool>("api/IceCream/AddElement", new IceCreamBindingModel
                     {
                         IceCreamName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),

@@ -1,23 +1,18 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.Interfaces;
+using IceCreamShopServiceDAL.ViewModels;
 using Microsoft.Reporting.WinForms;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormCustomerBookings : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IRecordService service;
-
-        public FormCustomerBookings(IRecordService service)
+        public FormCustomerBookings()
         {
             InitializeComponent();
-            this.service = service;
         }
 
         private void buttonMake_Click(object sender, EventArgs e)
@@ -31,16 +26,20 @@ namespace IceCreamShopView
             }
             try
             {
-                ReportParameter parameter = new ReportParameter("RecordParameterPeriod", 
+                ReportParameter parameter = new ReportParameter("RecordParameterPeriod",
                     "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " +
                     dateTimePickerTo.Value.ToShortDateString());
                 recordViewer.LocalReport.SetParameters(parameter);
-                var dataSource = service.GetCustomerBookings(new RecordBindingModel
+
+                List<CustomerBookingsModel> response =
+                APIClient.PostRequest<RecordBindingModel,
+                List<CustomerBookingsModel>>("api/Record/GetCustomerBookings", new RecordBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
                 });
-                ReportDataSource source = new ReportDataSource("DataSetBookings", dataSource);
+
+                ReportDataSource source = new ReportDataSource("DataSetBookings", response);
                 recordViewer.LocalReport.DataSources.Add(source);
                 recordViewer.RefreshReport();
             }
@@ -66,7 +65,8 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    service.SaveCustomerBookings(new RecordBindingModel
+                    APIClient.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveCustomerBookings", new RecordBindingModel
                     {
                         FileName = sfd.FileName,
                         DateFrom = dateTimePickerFrom.Value,

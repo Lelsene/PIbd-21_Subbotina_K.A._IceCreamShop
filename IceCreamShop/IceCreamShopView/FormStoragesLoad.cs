@@ -1,28 +1,22 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
+using IceCreamShopServiceDAL.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormStoragesLoad : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IRecordService service;
-
-        public FormStoragesLoad(IRecordService service)
+        public FormStoragesLoad()
         {
             InitializeComponent();
-            this.service = service;
         }
         private void FormStocksLoad_Load(object sender, EventArgs e)
         {
             try
             {
-                var dict = service.GetStoragesLoad();
+                var dict = APIClient.GetRequest<List<StoragesLoadViewModel>>("api/Record/GetStoragesLoad");
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -54,7 +48,8 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    service.SaveStoragesLoad(new RecordBindingModel
+                    APIClient.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveStoragesLoad", new RecordBindingModel
                     {
                         FileName = sfd.FileName
                     });

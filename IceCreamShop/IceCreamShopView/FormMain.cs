@@ -1,34 +1,23 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Unity;
 
 namespace IceCreamShopView
 {
     public partial class FormMain : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        private readonly IMainService service;
-
-        private IRecordService recordService;
-
-        public FormMain(IMainService service, IRecordService recordService)
+        public FormMain()
         {
             InitializeComponent();
-            this.service = service;
-            this.recordService = recordService;
         }
 
         private void LoadData()
         {
             try
             {
-                List<BookingViewModel> list = service.GetList();
+                List<BookingViewModel> list = APIClient.GetRequest<List<BookingViewModel>>("api/Main/GetList");
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -49,31 +38,31 @@ namespace IceCreamShopView
 
         private void покупателиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCustomers>();
+            var form = new FormCustomers();
             form.ShowDialog();
         }
 
         private void ингредиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormIngredients>();
+            var form = new FormIngredients();
             form.ShowDialog();
         }
 
         private void мороженоеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormIceCreams>();
+            var form = new FormIceCreams();
             form.ShowDialog();
         }
 
         private void пополнитьХранилищеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPutOnStorage>();
+            var form = new FormPutOnStorage();
             form.ShowDialog();
         }
 
         private void хранилищаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormStorages>();
+            var form = new FormStorages();
             form.ShowDialog();
         }
 
@@ -87,7 +76,8 @@ namespace IceCreamShopView
             {
                 try
                 {
-                    recordService.SaveIceCreamPrice(new RecordBindingModel
+                    APIClient.PostRequest<RecordBindingModel,
+                    bool>("api/Record/SaveIceCreamPrice", new RecordBindingModel
                     {
                         FileName = sfd.FileName
                     });
@@ -104,20 +94,20 @@ namespace IceCreamShopView
 
         private void загруженностьХранилищToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormStoragesLoad>();
+            var form = new FormStoragesLoad();
             form.ShowDialog();
         }
 
         private void заказыПокупателейToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCustomerBookings>();
+            var form = new FormCustomerBookings();
             form.ShowDialog();
         }
 
 
         private void buttonCreateBooking_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCreateBooking>();
+            var form = new FormCreateBooking();
             form.ShowDialog();
             LoadData();
         }
@@ -129,7 +119,11 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.TakeBookingInWork(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel,
+                    bool>("api/Main/TakeBookingInWork", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -147,7 +141,11 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.FinishBooking(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel,
+                    bool>("api/Main/FinishBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
@@ -165,7 +163,11 @@ namespace IceCreamShopView
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
-                    service.PayBooking(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel,
+                    bool>("api/Main/PayBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                 }
                 catch (Exception ex)
