@@ -1,19 +1,13 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormIngredient : System.Web.UI.Page
     {
-        public int Id { set { id = value; } }
-
-        private readonly IIngredientService service = UnityConfig.Container.Resolve<IngredientServiceDB>();
-
         private int id;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -22,7 +16,7 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    IngredientViewModel view = service.GetElement(id);
+                    IngredientViewModel view = APIClient.GetRequest<IngredientViewModel>("api/Ingredient/Get/" + id);
                     if (view != null)
                     {
                         if (!Page.IsPostBack)
@@ -49,7 +43,7 @@ namespace IceCreamShopWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new IngredientBindingModel
+                    APIClient.PostRequest<IngredientBindingModel, bool>("api/Ingredient/UpdElement", new IngredientBindingModel
                     {
                         Id = id,
                         IngredientName = textBoxName.Text
@@ -57,7 +51,7 @@ namespace IceCreamShopWeb
                 }
                 else
                 {
-                    service.AddElement(new IngredientBindingModel
+                    APIClient.PostRequest<IngredientBindingModel, bool>("api/Ingredient/AddElement", new IngredientBindingModel
                     {
                         IngredientName = textBoxName.Text
                     });

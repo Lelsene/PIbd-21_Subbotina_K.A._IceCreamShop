@@ -1,19 +1,13 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormCustomer : System.Web.UI.Page
     {
-        public int Id { set { id = value; } }
-
-        private readonly ICustomerService service = UnityConfig.Container.Resolve<CustomerServiceDB>();
-
         private int id;
 
         private string name;
@@ -24,11 +18,11 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    CustomerViewModel view = service.GetElement(id);
+                    CustomerViewModel view = APIClient.GetRequest<CustomerViewModel>("api/Customer/Get/" + id);
                     if (view != null)
                     {
                         name = view.CustomerFIO;
-                        service.UpdElement(new CustomerBindingModel
+                        APIClient.PostRequest<CustomerBindingModel, bool>("api/Customer/UpdElement", new CustomerBindingModel
                         {
                             Id = id,
                             CustomerFIO = ""
@@ -37,7 +31,7 @@ namespace IceCreamShopWeb
                         {
                             textBoxName.Text = name;
                         }
-                        service.UpdElement(new CustomerBindingModel
+                        APIClient.PostRequest<CustomerBindingModel, bool>("api/Customer/UpdElement", new CustomerBindingModel
                         {
                             Id = id,
                             CustomerFIO = name
@@ -62,7 +56,7 @@ namespace IceCreamShopWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new CustomerBindingModel
+                    APIClient.PostRequest<CustomerBindingModel, bool>("api/Customer/UpdElement", new CustomerBindingModel
                     {
                         Id = id,
                         CustomerFIO = textBoxName.Text
@@ -70,7 +64,7 @@ namespace IceCreamShopWeb
                 }
                 else
                 {
-                    service.AddElement(new CustomerBindingModel
+                    APIClient.PostRequest<CustomerBindingModel, bool>("api/Customer/AddElement", new CustomerBindingModel
                     {
                         CustomerFIO = textBoxName.Text
                     });

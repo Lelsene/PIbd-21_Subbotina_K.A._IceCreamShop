@@ -47,7 +47,7 @@ namespace IceCreamShopRestApi
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<DbContext, IceCreamDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, IceCreamWebDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<ICustomerService, CustomerServiceDB>(new
             HierarchicalLifetimeManager());
             container.RegisterType<IIngredientService, IngredientServiceDB>(new

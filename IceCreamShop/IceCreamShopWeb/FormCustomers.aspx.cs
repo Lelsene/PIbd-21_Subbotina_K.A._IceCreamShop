@@ -1,22 +1,18 @@
-﻿using IceCreamShopServiceDAL.Interfaces;
+﻿using IceCreamShopServiceDAL.BindingModels;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormCustomers : System.Web.UI.Page
     {
-        private ICustomerService service = UnityConfig.Container.Resolve<CustomerServiceDB>();
-
         List<CustomerViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            service = UnityConfig.Container.Resolve<CustomerServiceDB>();
             LoadData();
         }
 
@@ -24,8 +20,11 @@ namespace IceCreamShopWeb
         {
             try
             {
-                list = service.GetList();
-                dataGridView.Columns[0].Visible = false;
+                list = APIClient.GetRequest<List<CustomerViewModel>>("api/Customer/GetList");
+                if (list != null)
+                {
+                    dataGridView.Columns[0].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -55,7 +54,7 @@ namespace IceCreamShopWeb
                 int id = list[dataGridView.SelectedIndex].Id;
                 try
                 {
-                    service.DelElement(id);
+                    APIClient.PostRequest<CustomerBindingModel, bool>("api/Customer/DelElement", new CustomerBindingModel { Id = id });
                 }
                 catch (Exception ex)
                 {

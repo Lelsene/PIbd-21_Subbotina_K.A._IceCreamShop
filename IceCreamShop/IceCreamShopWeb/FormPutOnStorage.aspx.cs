@@ -1,29 +1,21 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormPutOnStorage : System.Web.UI.Page
     {
-        private readonly IStorageService serviceS = UnityConfig.Container.Resolve<StorageServiceDB>();
-
-        private readonly IIngredientService serviceI = UnityConfig.Container.Resolve<IngredientServiceDB>();
-
-        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 try
                 {
-                    List<IngredientViewModel> listI = serviceI.GetList();
+                    List<IngredientViewModel> listI = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                     if (listI != null)
                     {
                         DropDownListIngredient.DataSource = listI;
@@ -31,7 +23,7 @@ namespace IceCreamShopWeb
                         DropDownListIngredient.DataTextField = "IngredientName";
                         DropDownListIngredient.DataValueField = "Id";
                     }
-                    List<StorageViewModel> listS = serviceS.GetList();
+                    List<StorageViewModel> listS = APIClient.GetRequest<List<StorageViewModel>>("api/Storage/GetList");
                     if (listS != null)
                     {
                         DropDownListStorage.DataSource = listS;
@@ -67,7 +59,7 @@ namespace IceCreamShopWeb
             }
             try
             {
-                serviceM.PutIngredientOnStorage(new StorageIngredientBindingModel
+                APIClient.PostRequest<StorageIngredientBindingModel, bool>("api/Main/PutIngredientOnStorage", new StorageIngredientBindingModel
                 {
                     IngredientId = Convert.ToInt32(DropDownListIngredient.SelectedValue),
                     StorageId = Convert.ToInt32(DropDownListStorage.SelectedValue),

@@ -1,21 +1,17 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormIceCream : System.Web.UI.Page
     {
-        private readonly IIceCreamService service = UnityConfig.Container.Resolve<IceCreamServiceDB>();
-
         private int id;
 
         private List<IceCreamIngredientViewModel> icecreamIngredients;
@@ -29,7 +25,7 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    IceCreamViewModel view = service.GetElement(id);
+                    IceCreamViewModel view = APIClient.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id);
                     if (view != null)
                     {
                         if (!Page.IsPostBack)
@@ -100,7 +96,7 @@ namespace IceCreamShopWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new IceCreamBindingModel
+                    APIClient.PostRequest<IceCreamBindingModel, bool>("api/IceCream/UpdElement", new IceCreamBindingModel
                     {
                         Id = id,
                         IceCreamName = "Введите название",
@@ -110,13 +106,13 @@ namespace IceCreamShopWeb
                 }
                 else
                 {
-                    service.AddElement(new IceCreamBindingModel
+                    APIClient.PostRequest<IceCreamBindingModel, bool>("api/IceCream/AddElement", new IceCreamBindingModel
                     {
                         IceCreamName = "Введите название",
                         Price = 0,
                         IceCreamIngredients = icecreamIngredientBM
                     });
-                    Session["id"] = service.GetList().Last().Id.ToString();
+                    Session["id"] = APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList").Last().Id.ToString();
                     Session["Change"] = "0";
                 }
             }
@@ -155,7 +151,7 @@ namespace IceCreamShopWeb
         {
             if (dataGridView.SelectedIndex >= 0)
             {
-                model = service.GetElement(id).IceCreamIngredients[dataGridView.SelectedIndex];
+                model = APIClient.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id).IceCreamIngredients[dataGridView.SelectedIndex];
                 Session["SEId"] = model.Id;
                 Session["SEIceCreamId"] = model.IceCreamId;
                 Session["SEIngredientId"] = model.IngredientId;
@@ -218,10 +214,10 @@ namespace IceCreamShopWeb
                         Count = icecreamIngredients[i].Count
                     });
                 }
-                //service.DelElement(service.GetList().Last().Id);
+
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new IceCreamBindingModel
+                    APIClient.PostRequest<IceCreamBindingModel, bool>("api/IceCream/UpdElement", new IceCreamBindingModel
                     {
                         Id = id,
                         IceCreamName = textBoxName.Text,
@@ -231,7 +227,7 @@ namespace IceCreamShopWeb
                 }
                 else
                 {
-                    service.AddElement(new IceCreamBindingModel
+                    APIClient.PostRequest<IceCreamBindingModel, bool>("api/IceCream/AddElement", new IceCreamBindingModel
                     {
                         IceCreamName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
@@ -251,13 +247,13 @@ namespace IceCreamShopWeb
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
         {
-            if (service.GetList().Count != 0 && service.GetList().Last().IceCreamName == null)
+            if (APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList").Count != 0 && APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList").Last().IceCreamName == null)
             {
-                service.DelElement(service.GetList().Last().Id);
+                APIClient.PostRequest<IceCreamBindingModel, bool>("api/IceCream/DelElement", new IceCreamBindingModel { Id = APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList").Last().Id });
             }
             if (!String.Equals(Session["Change"], null))
             {
-                service.DelElement(id);
+                APIClient.PostRequest<IceCreamBindingModel, bool>("api/IceCream/DelElement", new IceCreamBindingModel { Id = id });
             }
             Session["id"] = null;
             Session["Change"] = null;

@@ -1,23 +1,18 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormMain : System.Web.UI.Page
     {
-        private IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
-
-        List<BookingViewModel> list;
+        private List<BookingViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            service = UnityConfig.Container.Resolve<MainServiceDB>();
             LoadData();
         }
 
@@ -25,7 +20,7 @@ namespace IceCreamShopWeb
         {
             try
             {
-                list = service.GetList();
+                list = APIClient.GetRequest<List<BookingViewModel>>("api/Main/GetList");
                 dataGridView1.Columns[0].Visible = false;
             }
             catch (Exception ex)
@@ -46,7 +41,10 @@ namespace IceCreamShopWeb
                 try
                 {
                     int id = list[dataGridView1.SelectedIndex].Id;
-                    service.TakeBookingInWork(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel, bool>("api/Main/TakeBookingInWork", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
                 }
@@ -64,7 +62,10 @@ namespace IceCreamShopWeb
                 int id = list[dataGridView1.SelectedIndex].Id;
                 try
                 {
-                    service.FinishBooking(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel, bool>("api/Main/FinishBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
                 }
@@ -82,7 +83,10 @@ namespace IceCreamShopWeb
                 int id = list[dataGridView1.SelectedIndex].Id;
                 try
                 {
-                    service.PayBooking(new BookingBindingModel { Id = id });
+                    APIClient.PostRequest<BookingBindingModel, bool>("api/Main/PayBooking", new BookingBindingModel
+                    {
+                        Id = id
+                    });
                     LoadData();
                     Server.Transfer("FormMain.aspx");
                 }

@@ -1,19 +1,13 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormStorage : System.Web.UI.Page
     {
-        public int Id { set { id = value; } }
-
-        private readonly IStorageService service = UnityConfig.Container.Resolve<StorageServiceDB>();
-
         private int id;
 
         private string name;
@@ -24,13 +18,13 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    StorageViewModel view = service.GetElement(id);
+                    StorageViewModel view = APIClient.GetRequest<StorageViewModel>("api/Storage/Get/" + id);
                     if (view != null)
                     {
                         name = view.StorageName;
                         dataGridView.DataSource = view.StorageIngredients;
                         dataGridView.DataBind();
-                        service.UpdElement(new StorageBindingModel
+                        APIClient.PostRequest<StorageBindingModel, bool>("api/Storage/UpdElement", new StorageBindingModel
                         {
                             Id = id,
                             StorageName = ""
@@ -39,7 +33,7 @@ namespace IceCreamShopWeb
                         {
                             textBoxName.Text = name;
                         }
-                        service.UpdElement(new StorageBindingModel
+                        APIClient.PostRequest<StorageBindingModel, bool>("api/Storage/UpdElement", new StorageBindingModel
                         {
                             Id = id,
                             StorageName = name
@@ -64,7 +58,7 @@ namespace IceCreamShopWeb
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new StorageBindingModel
+                    APIClient.PostRequest<StorageBindingModel, bool>("api/Storage/UpdElement", new StorageBindingModel
                     {
                         Id = id,
                         StorageName = textBoxName.Text
@@ -72,7 +66,7 @@ namespace IceCreamShopWeb
                 }
                 else
                 {
-                    service.AddElement(new StorageBindingModel
+                    APIClient.PostRequest<StorageBindingModel, bool>("api/Storage/AddElement", new StorageBindingModel
                     {
                         StorageName = textBoxName.Text
                     });

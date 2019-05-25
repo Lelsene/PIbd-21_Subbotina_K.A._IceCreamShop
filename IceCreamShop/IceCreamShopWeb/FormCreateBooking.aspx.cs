@@ -1,22 +1,14 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
 using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopWebView;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormCreateBooking : System.Web.UI.Page
     {
-        private readonly ICustomerService serviceC = UnityConfig.Container.Resolve<CustomerServiceDB>();
-
-        private readonly IIceCreamService serviceS = UnityConfig.Container.Resolve<IceCreamServiceDB>();
-
-        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -24,7 +16,7 @@ namespace IceCreamShopWeb
                 try
                 {
 
-                    List<CustomerViewModel> listC = serviceC.GetList();
+                    List<CustomerViewModel> listC = APIClient.GetRequest<List<CustomerViewModel>>("api/Customer/GetList");
                     if (listC != null)
                     {
                         DropDownListCustomer.DataSource = listC;
@@ -32,7 +24,7 @@ namespace IceCreamShopWeb
                         DropDownListCustomer.DataTextField = "CustomerFIO";
                         DropDownListCustomer.DataValueField = "Id";
                     }
-                    List<IceCreamViewModel> listP = serviceS.GetList();
+                    List<IceCreamViewModel> listP = APIClient.GetRequest<List<IceCreamViewModel>>("api/IceCream/GetList");
                     if (listP != null)
                     {
                         DropDownListIceCream.DataSource = listP;
@@ -58,9 +50,9 @@ namespace IceCreamShopWeb
                 try
                 {
                     int id = Convert.ToInt32(DropDownListIceCream.SelectedValue);
-                    IceCreamViewModel product = serviceS.GetElement(id);
+                    IceCreamViewModel IceCream = APIClient.GetRequest<IceCreamViewModel>("api/IceCream/Get/" + id);
                     int count = Convert.ToInt32(TextBoxCount.Text);
-                    TextBoxSum.Text = (count * product.Price).ToString();
+                    TextBoxSum.Text = (count * IceCream.Price).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +85,7 @@ namespace IceCreamShopWeb
             }
             try
             {
-                serviceM.CreateBooking(new BookingBindingModel
+                APIClient.PostRequest<BookingBindingModel, bool>("api/Main/CreateBooking", new BookingBindingModel
                 {
                     CustomerId = Convert.ToInt32(DropDownListCustomer.SelectedValue),
                     IceCreamId = Convert.ToInt32(DropDownListIceCream.SelectedValue),

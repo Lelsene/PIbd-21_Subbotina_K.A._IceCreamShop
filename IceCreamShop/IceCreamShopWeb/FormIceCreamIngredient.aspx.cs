@@ -1,17 +1,13 @@
-﻿using IceCreamShopServiceDAL.Interfaces;
-using IceCreamShopServiceDAL.ViewModels;
-using IceCreamShopServiceImplementDataBase.Implementations;
+﻿using IceCreamShopServiceDAL.ViewModels;
+using IceCreamShopWebView;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormIceCreamIngredient : System.Web.UI.Page
     {
-        private readonly IIngredientService service = UnityConfig.Container.Resolve<IngredientServiceDB>();
-
         private IceCreamIngredientViewModel model;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -20,7 +16,7 @@ namespace IceCreamShopWeb
             {
                 try
                 {
-                    List<IngredientViewModel> list = service.GetList();
+                    List<IngredientViewModel> list = APIClient.GetRequest<List<IngredientViewModel>>("api/Ingredient/GetList");
                     if (list != null)
                     {
                         {
@@ -54,7 +50,6 @@ namespace IceCreamShopWeb
             {
                 TextBoxCount.Text = Session["SECount"].ToString();
             }
-
         }
 
         protected void ButtonSave_Click(object sender, EventArgs e)

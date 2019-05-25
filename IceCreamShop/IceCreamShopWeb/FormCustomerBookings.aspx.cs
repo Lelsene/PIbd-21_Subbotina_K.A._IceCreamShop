@@ -1,17 +1,15 @@
 ﻿using IceCreamShopServiceDAL.BindingModels;
-using IceCreamShopServiceDAL.Interfaces;
-using IceCreamShopServiceImplementDataBase.Implementations;
+using IceCreamShopServiceDAL.ViewModels;
+using IceCreamShopWebView;
 using Microsoft.Reporting.WebForms;
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
-using Unity;
 
 namespace IceCreamShopWeb
 {
     public partial class FormCustomerBookings : System.Web.UI.Page
     {
-        private readonly IRecordService service = UnityConfig.Container.Resolve<RecordServiceDB>();
-
         protected void ButtonMake_Click(object sender, EventArgs e)
         {
             if (Calendar1.SelectedDate >= Calendar2.SelectedDate)
@@ -28,12 +26,14 @@ namespace IceCreamShopWeb
 
                 ReportViewer1.LocalReport.SetParameters(parameter);
 
-                var dataSource = service.GetCustomerBookings(new RecordBindingModel
+                List<CustomerBookingsModel> response = APIClient.PostRequest<RecordBindingModel,
+                List<CustomerBookingsModel>>("api/Record/GetCustomerBookings", new RecordBindingModel
                 {
                     DateFrom = Calendar1.SelectedDate,
                     DateTo = Calendar2.SelectedDate
                 });
-                ReportDataSource source = new ReportDataSource("DataSetBookings", dataSource);
+
+                ReportDataSource source = new ReportDataSource("DataSetBookings", response);
                 ReportViewer1.LocalReport.DataSources.Add(source);
                 ReportViewer1.DataBind();
             }
@@ -53,7 +53,7 @@ namespace IceCreamShopWeb
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             try
             {
-                service.SaveCustomerBookings(new RecordBindingModel
+                APIClient.PostRequest<RecordBindingModel, bool>("api/Record/SaveCustomerBookings", new RecordBindingModel
                 {
                     FileName = path,
                     DateFrom = Calendar1.SelectedDate,
