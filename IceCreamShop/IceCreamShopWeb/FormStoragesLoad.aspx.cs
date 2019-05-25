@@ -70,10 +70,10 @@ namespace IceCreamShopWeb
 
         protected void ButtonSaveExcel_Click(object sender, EventArgs e)
         {
-            string path = "C:\\Users\\Шонова\\Desktop\\test.xls";
+            string path = "C:\\Users\\Шонова\\Desktop\\StoragesLoad.xls";
             Response.Clear();
             Response.Buffer = true;
-            Response.AddHeader("Content-Disposition", "attachment; filename=test.xls");
+            Response.AddHeader("Content-Disposition", "attachment; filename=StoragesLoad.xls");
             Response.ContentType = "application/vnd.ms-excel";
             Response.Charset = String.Empty;
             //Response.ContentEncoding = System.Text.Encoding.UTF8;
