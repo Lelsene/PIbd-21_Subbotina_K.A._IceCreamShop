@@ -75,8 +75,7 @@ namespace IceCreamShopWeb
             Response.Buffer = true;
             Response.AddHeader("Content-Disposition", "attachment; filename=StoragesLoad.xls");
             Response.ContentType = "application/vnd.ms-excel";
-            Response.Charset = String.Empty;
-            //Response.ContentEncoding = System.Text.Encoding.UTF8;
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
             try
             {
                 APIClient.PostRequest<RecordBindingModel, bool>("api/Record/SaveStoragesLoad", new RecordBindingModel
