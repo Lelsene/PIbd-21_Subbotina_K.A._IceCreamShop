@@ -117,7 +117,7 @@ namespace IceCreamShopServiceImplementDataBase.Implementations
                     element.DateImplement = DateTime.Now;
                     element.Status = BookingStatus.Готовится;
                     context.SaveChanges();
-                    SendEmail(element.Customer.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} передеан в работу", element.Id, element.DateCreate.ToShortDateString()));
+                    SendEmail(element.Customer.Mail, "Оповещение по заказам", string.Format("Заказ №{0} от {1} передан в работу", element.Id, element.DateCreate.ToShortDateString()));
                     transaction.Commit();
                 }
                 catch (Exception)
