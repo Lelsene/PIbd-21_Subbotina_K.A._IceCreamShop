@@ -218,7 +218,6 @@ namespace IceCreamShopWeb
                         Count = icecreamIngredients[i].Count
                     });
                 }
-                //service.DelElement(service.GetList().Last().Id);
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdElement(new IceCreamBindingModel
